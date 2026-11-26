@@ -347,6 +347,22 @@
     show(0);
   }
 
+  /* ---- phone gallery: the thin bar under each row follows the sideways scroll ---- */
+  $$('.galm-group').forEach(function (g) {
+    var list = $('.galm-list', g), track = $('.galm-track', g), thumb = $('.galm-thumb', g);
+    var sync = function () {
+      var max = list.scrollWidth - list.clientWidth;
+      track.classList.toggle('off', max <= 2);
+      var room = track.clientWidth - thumb.offsetWidth;
+      thumb.style.transform = 'translateX(' + (max > 0 ? Math.abs(list.scrollLeft) / max * room : 0) + 'px)';
+    };
+    list.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    window.addEventListener('load', sync);
+    $$('img', list).forEach(function (im) { im.addEventListener('load', sync); });
+    sync();
+  });
+
   /* ---- unit plan zoom ---- */
   var plan = $('#planImg');
   if (plan) {

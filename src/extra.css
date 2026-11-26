@@ -179,15 +179,6 @@ main{max-width:var(--col);margin:0 auto}
 .gal-tabs button:last-child{border-right:0}
 .gal-tabs button:hover{background:rgba(240,238,238,.75)}
 .gal-tabs button.on{background:rgba(236,234,234,.92)}
-@media (max-width:767px){
-  .gal{height:auto;overflow:visible;background:#fff;padding:0 0 6rem}
-  .gal-h1{display:block;font-family:var(--canela);font-weight:300;font-size:4.6rem;text-transform:uppercase;color:#000;text-align:center;margin:0;padding:8rem 3rem 2rem}
-  .gal-slide{position:static;opacity:1;pointer-events:auto;padding:0 3rem 1.6rem}
-  .gal-slide h2{display:block;font-family:var(--canela);font-weight:300;font-size:3rem;text-transform:uppercase;color:#000;padding:5rem 0 2rem}
-  .gal-slide img{height:auto}
-  .gal-arrow,.gal-tabs{display:none}
-  .gal-back{position:static;color:#000;padding:4rem 3rem 0}
-}
 
 /* the night view holds in place until every landmark label is lit */
 .night-pin{height:300vh;margin-bottom:10rem}
@@ -283,4 +274,26 @@ body{overflow-x:hidden}
   .js .rv{transform:translateX(-3rem)}
   .js .rv.in{transform:none}
   .chars-pin{height:190vh}
+}
+
+/* gallery on phones and tablets, as on the original: title, then one sideways-scrolling row per residence type */
+.galm{display:none}
+@media (max-width:991px){
+  .gal{display:none}
+  .galm{display:block;padding:60px 0;background:#fff;color:#000}
+  .galm-hero{padding:40px 0 25px}
+  .galm-hero h1{margin:0 auto 28px;max-width:300px;text-align:center;text-transform:uppercase;font-family:var(--canela);font-weight:300;font-size:38px;line-height:1.4;letter-spacing:-.01em}
+  .galm-hero i{display:block;width:1px;height:65px;margin:0 auto;background:#000}
+  .galm-groups{display:flex;flex-direction:column;gap:43px}
+  .galm-head{text-align:center;font-family:var(--canela);font-weight:100;font-size:18px;line-height:1.2;letter-spacing:-.01em;margin-bottom:20px;padding:0 20px}
+  .galm-list{display:flex;gap:8px;padding:0 20px 16px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .galm-list::-webkit-scrollbar{display:none}
+  .galm-item{flex:none;height:312px}
+  .galm-item img{height:100%;width:auto;max-width:none}
+  .galm-track{position:relative;width:calc(100% - 40px);height:3px;margin:8px auto 0}
+  .galm-track::before{content:"";position:absolute;left:0;right:0;top:1px;height:1px;background:#ddd8d7}
+  .galm-thumb{position:relative;width:40px;height:100%;background:#000}
+  .galm-track.off{visibility:hidden}
+  .galm-back{display:flex;align-items:center;justify-content:center;gap:10px;margin:50px auto 0;font-family:var(--futura);font-size:16px;letter-spacing:.5px;text-transform:uppercase;color:#000}
+  .galm-back svg{width:7px;transform:scaleX(-1)}
 }
