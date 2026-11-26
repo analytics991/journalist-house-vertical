@@ -69,6 +69,24 @@ HERO = re.search(r'  <!-- =+ HERO =+ -->\n  <section class="hero".*?</section>\n
 HOME_MAIN = HOME_MAIN.replace(HERO, '')
 
 
+# Off until each smaller file has been checked to exist on the image host: a missing
+# one would show as a broken photo on phones.
+RESPONSIVE = False
+
+
+def responsive(m):
+    tag = m.group(0)
+    if 'srcset=' in tag:
+        return tag
+    src = re.search(r'src="([^"]+)-p-3200\.(avif|webp|jpg|png)"', tag)
+    if not src:
+        return tag
+    base, ext = src.group(1), src.group(2)
+    sizes = [800, 1080, 1600, 2000, 3200]
+    srcset = ', '.join('%s-p-%d.%s %dw' % (base, w, ext, w) for w in sizes)
+    return tag.replace('src="', 'sizes="100vw" srcset="%s" src="' % srcset, 1)
+
+
 def localise(s, R, page):
     """Point every link at the local copy."""
     home = '' if page == 'index' else R + 'index.html'
@@ -80,6 +98,8 @@ def localise(s, R, page):
     s = s.replace('href="/privacy-policy"', 'href="%sprivacy-policy.html"' % R)
     s = s.replace('href="/accessibility-statement"', 'href="%saccessibility-statement.html"' % R)
     s = s.replace('href="/terms-of-use"', 'href="%sterms-of-use.html"' % R)
+    if RESPONSIVE:
+        s = re.sub(r'<img\b[^>]*>', responsive, s)
     return s.replace('{V}', VERSION).replace('{R}', R).replace('@/', CDN + '/').replace('@%2F', CDN + '%2F')
 
 

@@ -87,10 +87,74 @@
     return clamp(-r.top / total, 0, 1);
   }
 
+  /* ---- "hold in place" sections ----
+     They use position:sticky. Some phone browsers do not keep sticky elements in
+     place here, so the first time a section should be holding we measure whether it
+     really is; if not, we switch to placing the held element ourselves (fixed while
+     holding, absolute before and after), which works everywhere. */
+  var topbar = $('.topbar');
+  var pinDefs = [['.chars-pin', '.statement, .lead'], ['.night-pin', '.night-hold'], ['.vid-pin', '.beyond'],
+    ['.slide-pin', '.slide-hold'], ['.feat', '.feat-pin'], ['.tower[data-pinned]', '.tower-pin']];
+  var pins = [];
+  pinDefs.forEach(function (d) {
+    $$(d[0]).forEach(function (w) {
+      var i = $(d[1], w);
+      if (i) { pins.push({ w: w, i: i, st: null, bleed: i.classList.contains('slide-hold') }); }
+    });
+  });
+  var pinsKnown = false;
+  try { pinsKnown = window.localStorage.getItem('jh-pins') === 'js'; } catch (e) {}
+  var manualPins = pinsKnown || /[?&]pins=js/.test(window.location.search), stickyChecked = manualPins;
+
+  function placePins(vh) {
+    var bar = topbar ? topbar.offsetHeight : 0;
+    pins.forEach(function (p) {
+      var r = p.w.getBoundingClientRect(), ih = p.i.offsetHeight, s = p.i.style;
+      if (r.height <= ih + 20) {
+        if (p.st !== 'off') { p.st = 'off'; s.position = s.top = s.bottom = s.left = s.width = s.marginLeft = ''; }
+        return;
+      }
+      var st = r.top > bar ? 'before' : (r.bottom < bar + ih ? 'after' : 'during');
+      if (st === p.st) { return; }
+      p.st = st;
+      p.w.style.position = 'relative';
+      s.marginLeft = '0';
+      if (st === 'during') {
+        s.position = 'fixed'; s.top = bar + 'px'; s.bottom = 'auto';
+        s.left = (p.bleed ? 0 : r.left) + 'px';
+        s.width = (p.bleed ? doc.documentElement.clientWidth : r.width) + 'px';
+      } else {
+        s.position = 'absolute';
+        s.left = (p.bleed ? -r.left : 0) + 'px';
+        s.width = (p.bleed ? doc.documentElement.clientWidth : r.width) + 'px';
+        s.top = st === 'before' ? '0' : 'auto';
+        s.bottom = st === 'after' ? '0' : 'auto';
+      }
+    });
+  }
+
+  function checkSticky() {
+    var bar = topbar ? topbar.offsetHeight : 0, vh = window.innerHeight;
+    for (var k = 0; k < pins.length; k++) {
+      var p = pins[k], r = p.w.getBoundingClientRect(), ih = p.i.offsetHeight;
+      if (r.height <= ih + 20 || r.top > bar - 40 || r.bottom < 40 || r.top > vh) { continue; }
+      /* where a working sticky element would be right now: held under the bar, or
+         resting at the end of its section once the hold is over */
+      var want = Math.min(bar, r.bottom - ih);
+      if (Math.abs(p.i.getBoundingClientRect().top - want) > 6) {
+        stickyChecked = manualPins = true;
+        try { window.localStorage.setItem('jh-pins', 'js'); } catch (e) {}
+        return;
+      }
+    }
+  }
+
   function update() {
     ticking = false;
     var vh = window.innerHeight;
     var isMobile = mobile.matches;
+    if (!stickyChecked) { checkSticky(); }
+    if (manualPins) { placePins(vh); }
 
     if (!reduce) {
       plx.forEach(function (img) {
@@ -172,10 +236,20 @@
     }
   }
   function onScroll() {
+    if (manualPins) { placePins(window.innerHeight); }
     if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
   }
+  /* while the opening logo is up the page must not scroll. Done here rather than with
+     overflow:hidden on <html>, which changes what the held sections stick to. */
+  var holdScroll = function (e) {
+    if (doc.documentElement.classList.contains('ld-on')) { e.preventDefault(); return; }
+    window.removeEventListener('touchmove', holdScroll);
+    window.removeEventListener('wheel', holdScroll);
+  };
+  window.addEventListener('touchmove', holdScroll, { passive: false });
+  window.addEventListener('wheel', holdScroll, { passive: false });
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
+  window.addEventListener('resize', function () { pins.forEach(function (p) { p.st = null; }); onScroll(); });
   window.addEventListener('load', onScroll);
   update();
 
@@ -207,6 +281,24 @@
     window.addEventListener('load', snap);
     [0, 150, 500, 1200, 2500].forEach(function (t) { window.setTimeout(snap, t); });
   })();
+
+  /* ---- once the page is up, fetch the remaining photos in page order (a few at a
+     time) so they are already there when the visitor scrolls to them ---- */
+  window.addEventListener('load', function () {
+    var queue = $$('img[loading="lazy"]'), running = 0;
+    var next = function () {
+      while (running < 3 && queue.length) {
+        var im = queue.shift();
+        if (im.complete && im.naturalWidth) { continue; }
+        running += 1;
+        var done = function () { running -= 1; next(); };
+        im.addEventListener('load', done, { once: true });
+        im.addEventListener('error', done, { once: true });
+        im.loading = 'eager';
+      }
+    };
+    window.setTimeout(next, 1200);
+  });
 
   /* ---- chapters menu ---- */
   var menuBtn = $('#menuBtn'), menu = $('#menu');
