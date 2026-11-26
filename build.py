@@ -105,13 +105,13 @@ def page(path, title, desc, main, chapter_label='', chapters=(), before_main='',
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>%s</title>
 <meta name="description" content="%s">
-%s<script>document.documentElement.className += ' js';try{if(sessionStorage.getItem('jh-pt')){sessionStorage.removeItem('jh-pt');document.documentElement.className += ' pt-in';}}catch(e){}</script>
+%s<script>document.documentElement.className += ' js';document.documentElement.className += ' ld-on';</script>
 <link rel="stylesheet" href="{R}css/site.css?v={V}">
 </head>
 <body id="top" data-chapters="%s">
 
 %s
-<div class="pt" id="pt" aria-hidden="true"><svg viewBox="0 0 306 150"><use href="#jh-logo"/></svg></div>
+<div class="ld" id="ld" aria-hidden="true"><div class="ld-logo"><svg class="ld-base" viewBox="0 0 306 150"><use href="#jh-logo"/></svg><svg class="ld-fill" viewBox="0 0 306 150"><use href="#jh-logo"/></svg></div></div>
 
 %s
 
@@ -226,7 +226,7 @@ def orig_page(path, pg, main, script, title=None, desc='', page_css=None):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>%s</title>
 <meta name="description" content="%s">
-%s<script>document.documentElement.className += ' js';try{if(sessionStorage.getItem('jh-pt')){sessionStorage.removeItem('jh-pt');document.documentElement.className += ' pt-in';}}catch(e){}</script>
+%s<script>document.documentElement.className += ' js';document.documentElement.className += ' ld-on';</script>
 <link rel="stylesheet" href="{R}css/orig.css?v={V}">
 <link rel="stylesheet" href="{R}css/site.css?v={V}">
 %s
@@ -236,7 +236,7 @@ def orig_page(path, pg, main, script, title=None, desc='', page_css=None):
 <body id="top" class="orig" data-chapters="">
 
 %s
-<div class="pt" id="pt" aria-hidden="true"><svg viewBox="0 0 306 150"><use href="#jh-logo"/></svg></div>
+<div class="ld" id="ld" aria-hidden="true"><div class="ld-logo"><svg class="ld-base" viewBox="0 0 306 150"><use href="#jh-logo"/></svg><svg class="ld-fill" viewBox="0 0 306 150"><use href="#jh-logo"/></svg></div></div>
 
 %s
 
