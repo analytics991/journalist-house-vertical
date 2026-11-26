@@ -63,6 +63,8 @@ MODAL = MODAL.replace(' id="inqBox"', '')
 
 NIGHT = re.sub(r'^<svg[^>]*>', '<svg viewBox="0 0 1332 741" fill="none" aria-hidden="true">', read('src/night-labels.svg').strip())
 HOME_MAIN = HOME_MAIN.replace('{NIGHT_SVG}', NIGHT)
+import hashlib
+VERSION = hashlib.md5((CSS + read('src/site.js')).encode('utf-8')).hexdigest()[:8]
 HERO = re.search(r'  <!-- =+ HERO =+ -->\n  <section class="hero".*?</section>\n', HOME_MAIN, re.S).group(0)
 HOME_MAIN = HOME_MAIN.replace(HERO, '')
 
@@ -78,7 +80,7 @@ def localise(s, R, page):
     s = s.replace('href="/privacy-policy"', 'href="%sprivacy-policy.html"' % R)
     s = s.replace('href="/accessibility-statement"', 'href="%saccessibility-statement.html"' % R)
     s = s.replace('href="/terms-of-use"', 'href="%sterms-of-use.html"' % R)
-    return s.replace('{R}', R).replace('@/', CDN + '/').replace('@%2F', CDN + '%2F')
+    return s.replace('{V}', VERSION).replace('{R}', R).replace('@/', CDN + '/').replace('@%2F', CDN + '%2F')
 
 
 def contact(R):
@@ -104,7 +106,7 @@ def page(path, title, desc, main, chapter_label='', chapters=(), before_main='',
 <title>%s</title>
 <meta name="description" content="%s">
 %s<script>document.documentElement.className += ' js';</script>
-<link rel="stylesheet" href="{R}css/site.css">
+<link rel="stylesheet" href="{R}css/site.css?v={V}">
 </head>
 <body id="top" data-chapters="%s">
 
@@ -121,7 +123,7 @@ def page(path, title, desc, main, chapter_label='', chapters=(), before_main='',
 
 %s
 %s
-<script src="{R}js/site.js"></script>
+<script src="{R}js/site.js?v={V}"></script>
 </body>
 </html>
 ''' % (html.escape(title), html.escape(desc, quote=True), FONTS, html.escape('|'.join(chapters), quote=True),
