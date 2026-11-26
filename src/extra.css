@@ -276,14 +276,11 @@ body{overflow-x:hidden}
 .tower-pin,.night-hold,.feat-pin,.vid-pin .beyond,.chars-pin .statement,.chars-pin .lead{max-width:100%}
 @media (max-width:767px){
   .tower{overflow:hidden}
-  .hood,.studio,.proj,.about,.trio{overflow:hidden}
 }
-/* phones: the slide-in reveals must not push content past the screen edge */
+/* phones: reveals slide in from the left, which can never push content past the right edge.
+   (No overflow clipping on the page itself: on iPhones that stops the pinned sections from holding.) */
 @media (max-width:991px){
-  main{overflow-x:clip}
-  .js .rv{transform:translateX(3rem)}
+  .js .rv{transform:translateX(-3rem)}
   .js .rv.in{transform:none}
-}
-@supports not (overflow:clip){
-  @media (max-width:991px){.js .rv{transform:none}}
+  .chars-pin{height:190vh}
 }
