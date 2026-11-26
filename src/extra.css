@@ -215,3 +215,7 @@ main{max-width:var(--col);margin:0 auto}
 .chars-pin{height:230vh}
 .chars-pin .statement{position:sticky;top:var(--bar);min-height:0;height:calc(100vh - var(--bar));height:calc(100svh - var(--bar))}
 .ch{transition:color .35s linear}
+
+/* reveals slide in from the side instead of rising from below */
+.js .rv{transform:translateX(7rem)}
+.js .rv.in{transform:none}
