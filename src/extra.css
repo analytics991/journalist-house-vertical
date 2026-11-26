@@ -241,3 +241,8 @@ html.ld-on{overflow:hidden}
 
 /* inquire is an envelope icon in the top menu */
 @media (max-width:767px){.tb-icon.tb-mail{display:flex;width:var(--bar)}.tb-icon.tb-mail svg{width:3.6rem}}
+
+/* top-menu icons: smaller, with more room either side */
+.tb-icon{width:10rem}
+.tb-icon svg{width:2.6rem}
+@media (max-width:767px){.tb-icon.tb-mail{width:10rem}.tb-icon.tb-mail svg{width:3rem}}
