@@ -528,3 +528,5 @@ html.ld-on{overflow:hidden}
 .slide-hold{position:sticky;top:var(--bar);height:calc(100vh - var(--bar));height:calc(100svh - var(--bar));display:flex;align-items:center;justify-content:center}
 .slide-hold img{width:100%;height:100%;object-fit:cover;will-change:transform}
 @media (max-width:767px){.slide-pin{height:200vh}.slide-hold img{height:auto;max-height:100%}}
+
+html{overflow-x:clip}
