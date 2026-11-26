@@ -96,8 +96,8 @@
     nights.forEach(function (fig) {
       var r = fig.getBoundingClientRect();
       if (r.bottom < -200 || r.top > vh + 200) { return; }
-      var p = reduce ? 1 : clamp((vh * 0.8 - r.top) / (vh * 0.55), 0, 1);
-      var n = Math.round(p * fig._labels.length);
+      var p = reduce ? 1 : clamp(pinProgress(fig, vh) / 0.85, 0, 1);
+      var n = r.top > vh * 0.25 ? 0 : Math.ceil(p * fig._labels.length);
       fig._labels.forEach(function (g, i) { g.classList.toggle('on', i < n); });
     });
 

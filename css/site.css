@@ -464,3 +464,9 @@ main{max-width:var(--col);margin:0 auto}
   .gal-arrow,.gal-tabs{display:none}
   .gal-back{position:static;color:#000;padding:4rem 3rem 0}
 }
+
+/* the night view holds in place until every landmark label is lit */
+.night-pin{height:300vh;margin-bottom:10rem}
+.night-hold{position:sticky;top:var(--bar);height:calc(100vh - var(--bar));height:calc(100svh - var(--bar));display:flex;align-items:center;justify-content:center}
+.night-hold .night{margin:0;width:min(calc(100% - 8rem), calc((100vh - var(--bar) - 4rem) * 1470 / 817))}
+@media (max-width:767px){.night-pin{height:260vh;margin-bottom:6rem}.night-hold .night{width:100%}}
