@@ -246,3 +246,9 @@ html.ld-on{overflow:hidden}
 .tb-icon{width:10rem}
 .tb-icon svg{width:2.6rem}
 @media (max-width:767px){.tb-icon.tb-mail{width:10rem}.tb-icon.tb-mail svg{width:3rem}}
+
+/* double-height view: slides in from the right as you scroll and stops in the middle */
+.slide-pin{height:230vh}
+.slide-hold{position:sticky;top:var(--bar);height:calc(100vh - var(--bar));height:calc(100svh - var(--bar));display:flex;align-items:center;justify-content:center}
+.slide-hold img{width:100%;height:100%;object-fit:cover;will-change:transform}
+@media (max-width:767px){.slide-pin{height:200vh}.slide-hold img{height:auto;max-height:100%}}

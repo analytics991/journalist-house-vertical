@@ -73,6 +73,8 @@
     };
     window.addEventListener('touchstart', prime, { passive: true });
   });
+  var slidePins = $$('[data-slide-pin]');
+  slidePins.forEach(function (pin) { pin._img = $('img', pin); });
   var chapters = $$('[data-chapter]');
   var chNames = (body.getAttribute('data-chapters') || '').split('|').filter(Boolean);
   var chName = $('#chName'), chFill = $('#chFill'), curChapter = -1;
@@ -131,6 +133,16 @@
       if (r.bottom < -200 || r.top > vh + 200) { return; }
       var t = clamp(pinProgress(pin, vh) / 0.92, 0, 1) * (v.duration - 0.05);
       if (Math.abs(v.currentTime - t) > 0.03) { v.currentTime = t; }
+    });
+
+    slidePins.forEach(function (pin) {
+      var r = pin.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > vh + 200) { return; }
+      /* starts arriving a little before the section locks, and is centred well before it releases */
+      var lead = clamp((vh - r.top) / vh, 0, 1) * 0.25;
+      var p = reduce ? 1 : clamp(lead + pinProgress(pin, vh) / 0.7 * 0.75, 0, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      pin._img.style.transform = 'translate3d(' + ((1 - eased) * 100).toFixed(2) + 'vw,0,0)';
     });
 
     if (feat) {
