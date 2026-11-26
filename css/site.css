@@ -538,3 +538,8 @@ body{overflow-x:visible}
 
 .h2-big{font-size:7.5rem}
 @media (max-width:767px){.h2-big{font-size:4.2rem;line-height:1.3}}
+
+/* envelope: heavier strokes and a little larger so it stands out */
+.tb-mail svg{width:3rem;overflow:visible}
+.tb-mail svg rect,.tb-mail svg path{stroke-width:2.4}
+@media (max-width:767px){.tb-icon.tb-mail svg{width:3.4rem}}
