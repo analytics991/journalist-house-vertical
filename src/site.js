@@ -82,7 +82,8 @@
         var r = img.parentNode.getBoundingClientRect();
         if (r.bottom < -100 || r.top > vh + 100) { return; }
         var c = (r.top + r.height / 2 - vh / 2) / vh;
-        img.style.transform = 'translate3d(0,' + (clamp(c, -1, 1) * -7).toFixed(2) + '%,0)';
+        var zoom = 1.14 - 0.14 * clamp((vh - r.top) / (vh + r.height), 0, 1);
+        img.style.transform = 'translate3d(0,' + (clamp(c, -1, 1) * -7).toFixed(2) + '%,0) scale(' + zoom.toFixed(4) + ')';
       });
     }
 
