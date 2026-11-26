@@ -210,3 +210,8 @@ main{max-width:var(--col);margin:0 auto}
 @media (prefers-reduced-motion:reduce){
   .hero>img,.hero-logo,.hero-logo svg,.hero-tag,.scroll-cue{animation:none}
 }
+
+/* grey-to-black headings: the page holds while the letters darken */
+.chars-pin{height:230vh}
+.chars-pin .statement{position:sticky;top:var(--bar);min-height:0;height:calc(100vh - var(--bar));height:calc(100svh - var(--bar))}
+.ch{transition:color .35s linear}

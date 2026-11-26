@@ -32,6 +32,7 @@
       if (i < words.length - 1) { el.appendChild(doc.createTextNode(' ')); }
     });
     el._chars = $$('.ch', el);
+    el._pin = el.closest('[data-pin-chars]');
   });
 
   /* ---- reveal on scroll ---- */
@@ -88,7 +89,8 @@
     charEls.forEach(function (el) {
       var r = el.getBoundingClientRect();
       if (r.bottom < -200 || r.top > vh + 200) { return; }
-      var p = reduce ? 1 : clamp((vh * 0.9 - r.top) / (vh * 0.5), 0, 1);
+      var pin = el._pin;
+      var p = reduce ? 1 : (pin ? clamp((pinProgress(pin, vh) - 0.05) / 0.8, 0, 1) : clamp((vh * 0.8 - r.top) / (vh * 0.45), 0, 1));
       var n = Math.round(p * el._chars.length);
       el._chars.forEach(function (c, i) { c.classList.toggle('on', i < n); });
     });
