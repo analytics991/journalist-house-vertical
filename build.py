@@ -226,7 +226,7 @@ def orig_page(path, pg, main, script, title=None, desc='', page_css=None):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>%s</title>
 <meta name="description" content="%s">
-%s<script>(function(){var d=document.documentElement,m=/[/](cubes|floors|apartments)[/]/;d.className+=' js';try{var r=document.referrer?new URL(document.referrer):null,to=m.exec(location.pathname),from=r&&r.host===location.host?m.exec(r.pathname):null;if(to&&from&&!(to[1]==='apartments'&&from[1]!=='apartments')){d.className+=' no-ld';return;}}catch(e){}d.className+=' ld-on';})();</script>
+%s<script>(function(){var d=document.documentElement,m=/[/](cubes|floors|apartments|select-a-residence)(?:[/]|[.]html|$)/;d.className+=' js';try{var r=document.referrer?new URL(document.referrer):null,to=m.exec(location.pathname),from=r&&r.host===location.host?m.exec(r.pathname):null;if(to&&from&&!(to[1]==='apartments'&&from[1]!=='apartments')){d.className+=' no-ld';return;}}catch(e){}d.className+=' ld-on';})();</script>
 <link rel="stylesheet" href="{R}css/orig.css?v={V}">
 <link rel="stylesheet" href="{R}css/site.css?v={V}">
 %s
