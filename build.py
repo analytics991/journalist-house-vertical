@@ -216,7 +216,7 @@ def orig_links(h, R):
     return h
 
 
-def orig_page(path, pg, main, script, title=None, desc=''):
+def orig_page(path, pg, main, script, title=None, desc='', page_css=None):
     R = '../' * path.count('/')
     top = re.sub(r'<div class="tb-chapter".*?</div>\s*</div>\s*</div>', '', TOPBAR, flags=re.S)
     doc = """<!DOCTYPE html>
@@ -253,7 +253,7 @@ def orig_page(path, pg, main, script, title=None, desc=''):
 </body>
 </html>
 """ % (html.escape(title or pg['title']), html.escape(desc, quote=True), FONTS,
-       embed(pg, 'global-css'), embed(pg, 'page-styles'), ORIG_OVERRIDES,
+       embed(pg, 'global-css'), page_css if page_css is not None else embed(pg, 'page-styles'), ORIG_OVERRIDES,
        SYMBOLS, top, MENU, orig_links(main, R), MODAL, VIDEO_COOKIES, GSAP, R or './', script)
     write(path, localise(doc, R, ''))
 
@@ -271,7 +271,10 @@ apt_pg = pages['/apartments/601']
 for a in aptd['apts']:
     m = re.sub(r'<!--SHARED:([\w]+)-->', lambda mm: aptd['shared'][mm.group(1)], a['main'])
     m = m.replace('<button type="button" class="inquite-button', '<button type="button" data-inquire data-unit="%s" class="inquite-button' % a['slug'])
-    orig_page('apartments/%s.html' % a['slug'], apt_pg, m, 'apartments.js', title=a['title'], desc=a['desc']); n_orig += 1
+    sec = re.search(r'mt-el="ctx-type"[^>]*>([^<]*)<', a['main'])
+    pcss = embed(apt_pg, 'page-styles').replace("[mt-unit-floor='Urban Residences']", "[mt-unit-floor='%s']" % (sec.group(1).strip() if sec else ''))
+    pcss = pcss.replace("[href='/apartments/601']", "[href$='apartments/%s.html'].units-nav__top-view-link" % a['slug'])
+    orig_page('apartments/%s.html' % a['slug'], apt_pg, m, 'apartments.js', title=a['title'], desc=a['desc'], page_css=pcss); n_orig += 1
 apts = aptd['apts']
 
 write('css/site.css', CSS)
