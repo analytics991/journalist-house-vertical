@@ -367,6 +367,19 @@
   var ld = $('#ld');
   if (ld && doc.documentElement.classList.contains('no-ld')) {
     ld.style.display = 'none';
+    /* no loader on this step: hold the screen until the model has loaded, so text and model appear together */
+    (function () {
+      var shown = false;
+      var show = function () { if (!shown) { shown = true; doc.documentElement.classList.remove('wait-img'); } };
+      var imgs = $$('main img').filter(function (im) { return im.getAttribute('loading') !== 'lazy' && im.offsetParent !== null; });
+      var left = imgs.length;
+      if (!left) { show(); }
+      imgs.forEach(function (im) {
+        var one = function () { left -= 1; if (left <= 0) { show(); } };
+        if (im.complete) { one(); } else { im.addEventListener('load', one); im.addEventListener('error', one); }
+      });
+      window.setTimeout(show, 3500);
+    })();
   } else if (ld) {
     var fill = $('.ld-fill', ld), started = Date.now(), finished = false, prog = 0;
     var setFill = function (p, dur) {

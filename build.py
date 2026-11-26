@@ -216,6 +216,22 @@ def orig_links(h, R):
     return h
 
 
+def first_img(main, cls):
+    m = re.search(r'<img[^>]*src="([^"]+)"[^>]*class="%s' % cls, main)
+    return m.group(1) if m else ''
+
+
+def next_images(main):
+    out = []
+    for kind, slug in re.findall(r'href="/(cubes|floors)/([\w-]+)"', main):
+        nxt = orig['pages'].get('/%s/%s' % (kind, slug))
+        if nxt:
+            src = first_img(nxt['main'], 'cube-img' if kind == 'cubes' else 'floor-plan-bg')
+            if src and src not in out:
+                out.append(src)
+    return ''.join('<link rel="prefetch" as="image" href="%s">\n' % u for u in out)
+
+
 def orig_page(path, pg, main, script, title=None, desc='', page_css=None):
     R = '../' * path.count('/')
     top = re.sub(r'<div class="tb-chapter".*?</div>\s*</div>\s*</div>', '', TOPBAR, flags=re.S)
@@ -226,13 +242,13 @@ def orig_page(path, pg, main, script, title=None, desc='', page_css=None):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>%s</title>
 <meta name="description" content="%s">
-%s<script>(function(){var d=document.documentElement,m=/[/](cubes|floors|apartments|select-a-residence)(?:[/]|[.]html|$)/;d.className+=' js';try{var r=document.referrer?new URL(document.referrer):null,to=m.exec(location.pathname),from=r&&r.host===location.host?m.exec(r.pathname):null;if(to&&from&&!(to[1]==='apartments'&&from[1]!=='apartments')){d.className+=' no-ld';return;}}catch(e){}d.className+=' ld-on';})();</script>
+%s<script>(function(){var d=document.documentElement,m=/[/](cubes|floors|apartments|select-a-residence)(?:[/]|[.]html|$)/;d.className+=' js';try{var r=document.referrer?new URL(document.referrer):null,to=m.exec(location.pathname),from=r&&r.host===location.host?m.exec(r.pathname):null;if(to&&from&&!(to[1]==='apartments'&&from[1]!=='apartments')){d.className+=' no-ld wait-img';return;}}catch(e){}d.className+=' ld-on';})();</script>
 <link rel="stylesheet" href="{R}css/orig.css?v={V}">
 <link rel="stylesheet" href="{R}css/site.css?v={V}">
 %s
 %s
 %s
-</head>
+%s</head>
 <body id="top" class="orig" data-chapters="">
 
 %s
@@ -253,7 +269,7 @@ def orig_page(path, pg, main, script, title=None, desc='', page_css=None):
 </body>
 </html>
 """ % (html.escape(title or pg['title']), html.escape(desc, quote=True), FONTS,
-       embed(pg, 'global-css'), page_css if page_css is not None else embed(pg, 'page-styles'), ORIG_OVERRIDES,
+       embed(pg, 'global-css'), page_css if page_css is not None else embed(pg, 'page-styles'), ORIG_OVERRIDES, next_images(main),
        SYMBOLS, top, MENU, orig_links(main, R), MODAL, VIDEO_COOKIES, GSAP, R or './', script)
     write(path, localise(doc, R, ''))
 

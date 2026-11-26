@@ -267,3 +267,7 @@ body{overflow-x:visible}
 .tb-mail svg{width:3rem;overflow:visible}
 .tb-mail svg rect,.tb-mail svg path{stroke-width:2.4}
 @media (max-width:767px){.tb-icon.tb-mail svg{width:3.4rem}}
+
+/* selector steps without the loader: text and model appear together */
+body.orig main{transition:opacity .35s ease}
+.js.wait-img body.orig main{opacity:0}
