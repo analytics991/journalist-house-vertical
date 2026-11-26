@@ -105,12 +105,13 @@ def page(path, title, desc, main, chapter_label='', chapters=(), before_main='',
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>%s</title>
 <meta name="description" content="%s">
-%s<script>document.documentElement.className += ' js';</script>
+%s<script>document.documentElement.className += ' js';try{if(sessionStorage.getItem('jh-pt')){sessionStorage.removeItem('jh-pt');document.documentElement.className += ' pt-in';}}catch(e){}</script>
 <link rel="stylesheet" href="{R}css/site.css?v={V}">
 </head>
 <body id="top" data-chapters="%s">
 
 %s
+<div class="pt" id="pt" aria-hidden="true"><svg viewBox="0 0 306 150"><use href="#jh-logo"/></svg></div>
 
 %s
 
@@ -164,101 +165,116 @@ for slug, d in legal.items():
          '  <article class="legal">\n    <h1>%s</h1>\n    <div class="legal-text">%s</div>\n  </article>\n'
          % (html.escape(d['h1']), d['html']))
 
-# ---------------------------------------------------------------- residences
-units = json.loads(read('data/units.json'))
-status = units['status']
-apts = sorted(units['apartments'], key=lambda a: int(a['slug']))
-floor_img = {}
-for f in units['floors']:
-    key = '20' if f['slug'] == 'penthouse' else f['slug']
-    if f['imgs']:
-        floor_img[key] = f['imgs'][0]['src']
-
-SECTIONS = [  # name, anchor, veil top %, veil height %, floors label
-    ('The Penthouse', 'the-penthouse', 11.8, 5.9, 'Floor 20'),
-    ('Crown Residences', 'crown-residences', 17.7, 14.0, 'Floors 16 to 19'),
-    ('Double-Height Villas', 'double-height-villas', 31.7, 27.6, 'Floors 8 to 15'),
-    ('Urban Residences', 'urban-residences', 59.3, 6.9, 'Floors 6 to 7'),
-    ('Garden Terraces', 'garden-terraces', 66.2, 2.9, 'Floor 5'),
-]
+# ---------------------------------------------------------------- residence selector (original pages)
+def joined(prefix, n):
+    return ''.join(read('data/%s.part%d' % (prefix, i)).rstrip('\n') for i in range(n))
 
 
-def available(a):
-    return status.get(a['slug']) != 'Unavailable'
+orig = json.loads(joined('orig', 4))
+aptd = json.loads(joined('apt', 3))
+GSAP = ('<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>\n'
+        '<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>')
 
 
-def outdoor(a):
-    if 'terrace area' in a:
-        return 'Terrace', a['terrace area']
-    return 'Balcony', a.get('balcony area', '')
+def embed(pg, cls):
+    return ''.join(e['h'] for e in pg['embeds'] if e['c'].startswith(cls))
 
 
-sel = ['  <a class="back" href="{R}index.html#the-residences"><svg viewBox="0 0 40 59" style="transform:scaleX(-1)"><use href="#chev"/></svg>Back</a>',
-       '  <section class="pick">', '    <div class="tower-stage-wrap"><div class="stage">',
-       '      <img src="%s/6a61fe0e07bd3dfc7ac9c471_building-img.avif" alt="Journalist House – choose a section of the building">' % CDN,
-       '      <div class="veil-link" style="top:69.1%;height:30.9%;pointer-events:none"></div>']
-for name, anchor, top, h, _ in SECTIONS:
-    sel.append('      <a class="veil-link" href="#%s" data-name="%s" style="top:%s%%;height:%s%%" aria-label="%s"></a>' % (anchor, name, top, h, name))
-sel += ['    </div></div>',
-        '    <div class="pick-side"><svg viewBox="0 0 40 59"><use href="#chev"/></svg><div class="pick-text" id="pickText">Select<br>the section</div></div>',
-        '  </section>']
-for name, anchor, _, _, label in reversed(SECTIONS):
-    mine = [a for a in apts if a['section'] == name]
-    sel.append('  <section class="sect" id="%s">' % anchor)
-    sel.append('    <div class="sect-head"><h2 class="h2 rv">%s</h2><span>%s</span></div>' % (name, label))
-    for fl in sorted({int(a['floor']) for a in mine}):
-        rows = []
-        for a in [x for x in mine if int(x['floor']) == fl]:
-            kind, area = outdoor(a)
-            cells = [a['residence'], a.get('orientation', '—'), a['apartment area'] + ' sqm', (area + ' sqm ' + kind.lower()) if area else '—']
-            if available(a):
-                href = '{R}apartments/%s.html' % a['slug']
-                tds = ''.join('<td%s><a href="%s">%s</a></td>' % (' class="hide-m"' if i == 1 else '', href, c) for i, c in enumerate(cells))
-                rows.append('<tr>%s<td class="go"><a href="%s">View %s</a></td></tr>' % (tds, href, CHEV))
-            else:
-                tds = ''.join('<td%s><span>%s</span></td>' % (' class="hide-m"' if i == 1 else '', c) for i, c in enumerate(cells))
-                rows.append('<tr class="na">%s<td class="go"><span>Unavailable</span></td></tr>' % tds)
-        title = 'The Penthouse' if fl == 20 else 'Floor %d' % fl
-        img = floor_img.get(str(fl), '')
-        sel.append('    <div class="floor" id="floor-%d">' % fl)
-        sel.append('      <div class="floor-img">%s</div>' % ('<img class="rv" loading="lazy" src="%s" alt="%s plan">' % (img, title) if img else ''))
-        sel.append('      <div><h3>%s</h3><table class="units"><thead><tr><th>Residence</th><th class="hide-m">Orientation</th><th>Apartment</th><th>Outdoor</th><th></th></tr></thead><tbody>%s</tbody></table></div>' % (title, ''.join(rows)))
-        sel.append('    </div>')
-    sel.append('  </section>')
-sel.append('  <div class="gcta"><a class="tlink" href="{R}see-the-residences.html"><div class="tlink-text">Residences<br>Gallery</div>%s</a></div>' % CHEV)
-page('select-a-residence.html', 'Select a Residence | Tel Aviv Luxury Apartments',
-     'Choose a section, floor and residence at Journalist House, Tel Aviv.', '\n'.join(sel) + '\n')
+def orig_js(name):
+    js = orig['js']['https://jurnalist-house-2026.vercel.app/pages/' + name]
+    js = re.sub(r'"/(apartments/|floors/[a-z]*|cubes/[a-z-]*|select-a-residence)"', r'(window.JH_BASE+"\1")', js)
+    js = js.replace('decodeURIComponent(t[t.length-1])', 'decodeURIComponent(t[t.length-1]).replace(/\\.html$/,"")')
+    js = re.sub(r'\n//# sourceMappingURL=.*', '', js)
+    write('js/orig/' + name, js)
 
-for i, a in enumerate(apts):
-    kind, area = outdoor(a)
-    ok = available(a) and a['plan'] and 'placeholder' not in a['plan']
-    prev_a = apts[i - 1] if i > 0 else None
-    next_a = apts[i + 1] if i < len(apts) - 1 else None
-    fl = int(a['floor'])
-    pdf = a['pdf'] if a['pdf'] and a['pdf'] != '#' else ''
-    m = ['  <section class="unit">', '    <div class="unit-panel">',
-         '      <div><div class="unit-k">Residence</div><div class="unit-v">%s</div></div>' % a['residence'],
-         '      <div><div class="unit-k">Section</div><div class="unit-v">%s</div></div>' % a['section'],
-         '      <div class="unit-two"><div><div class="unit-k">Floor</div><div class="unit-v">%s</div></div>%s</div>'
-         % (a['floor'], '<div><div class="unit-k">Orientation</div><div class="unit-v">%s</div></div>' % a['orientation'] if a.get('orientation') else ''),
-         '      <div class="unit-two"><div><div class="unit-k">Apartment<br>Area</div><div class="unit-v">%s<small>sqm</small></div></div>%s</div>'
-         % (a['apartment area'], '<div><div class="unit-k">%s<br>Area</div><div class="unit-v">%s<small>sqm</small></div></div>' % (kind, area) if area else ''),
-         '      <div class="unit-links">',
-         '        ' + ('<a href="%s" target="_blank" rel="noopener">Download PDF</a>' % pdf if pdf else '<span class="off">Download PDF</span>'),
-         '        ' + ('<a class="prev" href="%s.html">Prev %s</a>' % (prev_a['slug'], CHEV) if prev_a else '<span class="off">Prev</span>'),
-         '        <button type="button" data-inquire data-unit="%s">Inquire</button>' % a['residence'],
-         '        ' + ('<a href="%s.html">Next %s</a>' % (next_a['slug'], CHEV) if next_a else '<span class="off">Next</span>'),
-         '      </div>', '    </div>', '    <div class="unit-plan">']
-    if ok:
-        m += ['      <div class="plan-frame"><img id="planImg" src="%s" alt="Plan of residence %s"></div>' % (a['plan'], a['residence']),
-              '      <div class="plan-ctl"><button type="button" id="planOut" aria-label="Zoom out">−</button><button type="button" id="planLevel">100%</button><button type="button" id="planIn" aria-label="Zoom in">+</button></div>']
-    else:
-        m += ['      <div class="plan-na">This residence is<br>currently unavailable</div>']
-    m += ['      <div class="disclaimer">%s</div>' % html.escape(a['disclaimer']), '    </div>', '  </section>',
-          '  <div class="unit-back"><a class="back" style="padding:0" href="{R}select-a-residence.html#floor-%d"><svg viewBox="0 0 40 59" style="transform:scaleX(-1)"><use href="#chev"/></svg>Back</a></div>' % fl]
-    page('apartments/%s.html' % a['slug'], a['title'], a['desc'], '\n'.join(m) + '\n')
+
+for n in ('plans.js', 'cubes.js', 'floors.js', 'apartments.js'):
+    orig_js(n)
+write('css/orig.css', orig['css'])
+
+ORIG_OVERRIDES = """
+<style>
+  body.orig main{max-width:none}
+  body.orig main img{display:inline-block}
+  body.orig .main-wrapper{min-height:calc(100vh - var(--bar))}
+  body.orig .section_plans-hero{min-height:calc(100svh - var(--bar))}
+  @media (min-width:992px){
+    body.orig .section_units{width:100%;height:calc(100vh - var(--bar))}
+    body.orig .building-mockup-div{height:calc(100vh - var(--bar))}
+  }
+  @media (max-width:991px){
+    body.orig .section_plans-hero,body.orig .section_units{padding-top:3rem}
+    body.orig .back-btn{top:1rem}
+  }
+</style>"""
+
+
+def orig_links(h, R):
+    h = re.sub(r'href="/(apartments|floors|cubes)/([\w-]+)"', lambda m: 'href="%s%s/%s.html"' % (R, m.group(1), m.group(2)), h)
+    h = h.replace('href="/select-a-residence"', 'href="%sselect-a-residence.html"' % R)
+    h = re.sub(r'href="/#[\w-]*"', 'href="%sindex.html#the-residences"' % R, h)
+    return h
+
+
+def orig_page(path, pg, main, script, title=None, desc=''):
+    R = '../' * path.count('/')
+    top = re.sub(r'<div class="tb-chapter".*?</div>\s*</div>\s*</div>', '', TOPBAR, flags=re.S)
+    doc = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>%s</title>
+<meta name="description" content="%s">
+%s<script>document.documentElement.className += ' js';try{if(sessionStorage.getItem('jh-pt')){sessionStorage.removeItem('jh-pt');document.documentElement.className += ' pt-in';}}catch(e){}</script>
+<link rel="stylesheet" href="{R}css/orig.css?v={V}">
+<link rel="stylesheet" href="{R}css/site.css?v={V}">
+%s
+%s
+%s
+</head>
+<body id="top" class="orig" data-chapters="">
+
+%s
+<div class="pt" id="pt" aria-hidden="true"><svg viewBox="0 0 306 150"><use href="#jh-logo"/></svg></div>
+
+%s
+
+%s
+
+<div class="page-wrapper"><main class="main-wrapper">%s</main></div>
+
+%s
+%s
+%s
+<script>window.JH_BASE = new URL('%s', location.href).pathname;</script>
+<script src="{R}js/orig/%s?v={V}"></script>
+<script src="{R}js/site.js?v={V}"></script>
+</body>
+</html>
+""" % (html.escape(title or pg['title']), html.escape(desc, quote=True), FONTS,
+       embed(pg, 'global-css'), embed(pg, 'page-styles'), ORIG_OVERRIDES,
+       SYMBOLS, top, MENU, orig_links(main, R), MODAL, VIDEO_COOKIES, GSAP, R or './', script)
+    write(path, localise(doc, R, ''))
+
+
+pages = orig['pages']
+orig_page('select-a-residence.html', pages['/select-a-residence'], pages['/select-a-residence']['main'], 'plans.js',
+          desc='Choose a section, floor and residence at Journalist House, Tel Aviv.')
+n_orig = 1
+for pth, pg in pages.items():
+    if pth.startswith('/cubes/'):
+        orig_page(pth[1:] + '.html', pg, pg['main'], 'cubes.js'); n_orig += 1
+    elif pth.startswith('/floors/'):
+        orig_page(pth[1:] + '.html', pg, pg['main'], 'floors.js'); n_orig += 1
+apt_pg = pages['/apartments/601']
+for a in aptd['apts']:
+    m = re.sub(r'<!--SHARED:([\w]+)-->', lambda mm: aptd['shared'][mm.group(1)], a['main'])
+    m = m.replace('<button type="button" class="inquite-button', '<button type="button" data-inquire data-unit="%s" class="inquite-button' % a['slug'])
+    orig_page('apartments/%s.html' % a['slug'], apt_pg, m, 'apartments.js', title=a['title'], desc=a['desc']); n_orig += 1
+apts = aptd['apts']
 
 write('css/site.css', CSS)
 write('js/site.js', read('src/site.js'))
 write('.nojekyll', '')
-print('built', 8 + len(apts), 'pages')
+print('built', 8 + n_orig, 'pages')

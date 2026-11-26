@@ -60,6 +60,19 @@
       return (la ? +la.getAttribute('x1') : 0) - (lb ? +lb.getAttribute('x1') : 0);
     });
   });
+  var vidPins = $$('[data-vid-pin]');
+  vidPins.forEach(function (pin) {
+    var v = pin._video = $('video', pin);
+    v.pause();
+    v.addEventListener('loadedmetadata', onScroll);
+    /* phones only load the frames once playback has been touched */
+    var prime = function () {
+      var p = v.play();
+      if (p && p.then) { p.then(function () { v.pause(); onScroll(); }).catch(function () {}); }
+      window.removeEventListener('touchstart', prime);
+    };
+    window.addEventListener('touchstart', prime, { passive: true });
+  });
   var chapters = $$('[data-chapter]');
   var chNames = (body.getAttribute('data-chapters') || '').split('|').filter(Boolean);
   var chName = $('#chName'), chFill = $('#chFill'), curChapter = -1;
@@ -109,6 +122,15 @@
       if (r.bottom < -200 || r.top > vh + 200) { return; }
       var p = (reduce || isMobile) ? 1 : clamp((vh - r.top) / (vh * 0.8), 0, 1);
       fig.firstElementChild.style.width = (38 + 62 * p).toFixed(2) + '%';
+    });
+
+    vidPins.forEach(function (pin) {
+      var v = pin._video;
+      if (!v || !v.duration || isNaN(v.duration)) { return; }
+      var r = pin.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > vh + 200) { return; }
+      var t = clamp(pinProgress(pin, vh) / 0.92, 0, 1) * (v.duration - 0.05);
+      if (Math.abs(v.currentTime - t) > 0.03) { v.currentTime = t; }
     });
 
     if (feat) {
@@ -297,6 +319,28 @@
     $('#planIn').addEventListener('click', function () { setZ(z + 0.5); });
     $('#planOut').addEventListener('click', function () { setZ(z - 0.5); });
     lvl.addEventListener('click', function () { setZ(1); });
+  }
+
+  /* ---- page transition: a white screen with the logo between pages ---- */
+  var pt = $('#pt');
+  if (pt) {
+    window.setTimeout(function () { doc.documentElement.classList.remove('pt-in'); }, 450);
+    window.addEventListener('pageshow', function (e) {
+      if (e.persisted) { pt.classList.remove('show'); doc.documentElement.classList.remove('pt-in'); }
+    });
+    doc.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || reduce) { return; }
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a || a.target === '_blank' || a.hasAttribute('download') || a.hasAttribute('data-inquire')) { return; }
+      var url;
+      try { url = new URL(a.getAttribute('href'), window.location.href); } catch (err) { return; }
+      if (url.origin !== window.location.origin || !/^https?:$/.test(url.protocol) && url.protocol !== 'file:') { return; }
+      if (url.pathname === window.location.pathname) { return; }
+      e.preventDefault();
+      try { window.sessionStorage.setItem('jh-pt', '1'); } catch (err) { /* ignore */ }
+      pt.classList.add('show');
+      window.setTimeout(function () { window.location.href = url.href; }, 600);
+    });
   }
 
   /* ---- cookies ---- */

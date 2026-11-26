@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8th Floor Plan | Journalist House Tel Aviv</title>
+<meta name="description" content="">
+<link rel="icon" href="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a4f798b4f4e4193a1e3fbd1_HOME.jpg">
+<link rel="preconnect" href="https://cdn.prod.website-files.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400&display=swap" rel="stylesheet">
+<script>document.documentElement.className += ' js';try{if(sessionStorage.getItem('jh-pt')){sessionStorage.removeItem('jh-pt');document.documentElement.className += ' pt-in';}}catch(e){}</script>
+<link rel="stylesheet" href="../css/orig.css?v=e108acc8">
+<link rel="stylesheet" href="../css/site.css?v=e108acc8">
+<style>
+  :root {
+    --font-from: 10;
+    --font-to: 10;
+    --vw-from: calc(1920 / 100);
+    --vw-to: calc(2849 / 100);
+    --coefficient: calc((var(--font-to) - var(--font-from)) / (var(--vw-to) - var(--vw-from)));
+    --base: calc((var(--font-from) - var(--vw-from) * var(--coefficient)) / 16);
+  }
+
+  html {
+    font-size: calc(var(--base) * 1rem + var(--coefficient) * 1vw);
+  }
+
+  @media screen and (max-width: 1920px) {
+    :root {
+      --font-from: 6;
+      --font-to: 10;
+      --vw-from: calc(991 / 100);
+      --vw-to: calc(1920 / 100);
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    :root {
+      --font-from: 10;
+      --font-to: 10;
+      --vw-from: calc(1 / 100);
+      --vw-to: calc(991 / 100);
+    }
+  }
+  @media screen and (min-width: 992px) {
+    .chapter-tile:hover .chapter-link-arrow {
+      transform: translate(0rem, 0px);
+    }
+  }
+</style>
+
+<style>
+  /* Remove gray tap highlight on iOS */
+  a,
+  button,
+  input,
+  textarea,
+  .contact-us_x-wrapper {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  a,
+  button {
+    outline: 0;
+  }
+
+  /* Make text look crisper and more legible in all browsers */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smoothing: antialiased;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
+  }
+  html.is-preloading {
+    overflow: hidden;
+  }
+</style>
+<style>
+  .wf-design-mode .loader {
+    display: none;
+  }
+  /* Add auto overflow in webflow to make editing easier */
+  .wf-design-mode [data-horizontal-scroll-wrap] {
+    overflow: auto;
+  }
+  [data-load-reset] {
+    opacity: 0;
+  }
+
+  .chapter-tile__thumb-wrapper:hover .chapter-tile__thumb {
+    transform: scale(1.05);
+  }
+
+  /* .chapter-tile:hover .chapter-link-arrow {
+    transform: translate(0rem, 0px);
+  } */
+  .chapter-tile:hover .chapter-link-hovered {
+    opacity: 1;
+  }
+</style>
+
+<style>
+  /* Chapter menu — always legible on any background.
+   White ink + difference blend = the menu paints as the inverse of whatever is
+   behind it, so it stays visible over any colour or full-bleed image. */
+  .chapter-menu-c {
+    mix-blend-mode: difference;
+    background-color: transparent; /* any solid bg here would blend and kill the effect */
+  }
+  /* Ink must be white so 'difference' inverts the backdrop into a contrasting colour. */
+  .chapter-menu-c {
+    color: #fff;
+  } /* label text */
+  .chapter-menu-c .chapter-track {
+    background-color: rgba(255, 255, 255, 0.35);
+  } /* faint line */
+  .chapter-menu-c .chapter-track-fake {
+    background-color: rgba(255, 255, 255, 0.35);
+  } /* faint line */
+
+  .chapter-menu-c .chapter-track-fake.is--journy-2 {
+    background-color: #fff;
+  } /* faint line */
+  .chapter-menu-c .chapter-fill {
+    background-color: #fff;
+  } /* progress fill */
+
+  /* Scroll-lock while the Inquire modal is open (Lenis is stopped; this kills native fallback scroll) */
+  html.is-inquire-open {
+    overflow: hidden;
+    scrollbar-gutter: stable;
+  }
+  /* Modal hidden until JS takes over */
+  [mt-el='inquire-modal'] {
+    display: none;
+  }
+
+  #language-bar,
+  .enable-bottomlinks-feedback,
+  .enable-toolbar-links-section.enable-toolbar-link-powered-by,
+  .keyboard-shorcut {
+    display: none !important;
+  }
+</style>
+
+<!-- Mobile Sliders thumbs and scrollbars -->
+<style>
+  @media (max-width: 991px) {
+    [data-scrollbar] {
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+    }
+    [data-scrollbar]::-webkit-scrollbar {
+      display: none;
+    }
+    [data-scrollbar] > * {
+      flex-shrink: 0;
+    }
+  }
+
+  /* Override per slider by setting these variables on the slider's parent */
+  [data-scrollbar-track] {
+    position: relative;
+    width: var(--scrollbar-track-width, calc(100% - 4rem));
+    height: 3px;
+    margin: var(--scrollbar-gap, 24px) auto 0;
+  }
+  [data-scrollbar-track]::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 1px;
+    height: 1px;
+    background: #ddd8d7;
+  }
+  [data-scrollbar-thumb] {
+    position: relative;
+    width: 40px;
+    height: 100%;
+    background: #000;
+    touch-action: none;
+  }
+
+  @media (min-width: 992px) {
+    [data-scrollbar-track] {
+      display: none;
+    }
+  }
+</style>
+<style>
+  /* See-the-Residences — global sequence gallery */
+
+  /* Take over the sliders: stack every slide in one grid cell + kill Webflow's
+   slide transforms; the bundle owns opacity for the crossfade. */
+  .gallery_slider.is--managed .gallery_mask {
+    display: grid;
+  }
+  .gallery_slider.is--managed .gallery_slide {
+    grid-area: 1 / 1;
+    transform: none !important;
+    opacity: 0;
+  }
+  .gallery_slider.is--managed .gallery_slide.is--active {
+    opacity: 1;
+  }
+
+  /* Hide the native per-slider arrows + dots — one global control drives them. */
+  .gallery_slider .w-slider-arrow-left,
+  .gallery_slider .w-slider-arrow-right,
+  .gallery_slider .w-slider-nav {
+    display: none !important;
+  }
+
+  /* Global arrows: disabled look at the sequence ends (JS toggles data-disabled). */
+  [data-gallery-arrow][data-disabled] {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+</style>
+<style>
+  .mt-unit-details .unit-status {
+    position: static; /* kill any leftover absolute positioning */
+    display: block;
+    margin-bottom: 0rem; /* space between it and APARTMENT AREA — tune to taste */
+  }
+  .mt-unit-details {
+    margin-top: 2rem;
+  }
+  .is--unavailable path {
+    fill: black;
+  }
+
+  /* positioning context for the out-of-flow sub-line */
+  .the-building_hovered-text {
+    position: relative;
+  }
+
+  .unit-status {
+    position: absolute;
+    left: 0; /* align to the UNIT / number left edge */
+    top: 90%; /* below the label, no added height */
+    margin-top: 0.25em;
+    font-size: 0.55em; /* smaller than the unit number */
+    letter-spacing: normal; /* was 0.06em → too wide */
+    text-transform: uppercase;
+    text-align: left;
+    white-space: nowrap;
+    opacity: 0.65;
+  }
+</style>
+<style>
+  /*MOBILE  */
+  .type-mobile_floor-level-txt, [unit-data-wrap] {
+    opacity: 0;
+    visibility: hidden;
+  }
+</style>
+
+<style>
+  body.orig main{max-width:none}
+  body.orig main img{display:inline-block}
+  body.orig .main-wrapper{min-height:calc(100vh - var(--bar))}
+  body.orig .section_plans-hero{min-height:calc(100svh - var(--bar))}
+  @media (min-width:992px){
+    body.orig .section_units{width:100%;height:calc(100vh - var(--bar))}
+    body.orig .building-mockup-div{height:calc(100vh - var(--bar))}
+  }
+  @media (max-width:991px){
+    body.orig .section_plans-hero,body.orig .section_units{padding-top:3rem}
+    body.orig .back-btn{top:1rem}
+  }
+</style>
+</head>
+<body id="top" class="orig" data-chapters="">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="jh-logo" viewBox="0 0 306 150">
+    <path fill="currentColor" d="M7.6 71.5V56.2H3.4V93.8H7.6V75.4H26.7V93.8H30.9V56.2H26.7V71.5H7.6ZM58.2 55.6C47.5 55.6 38.7 64.3 38.7 75.1C38.7 85.8 47.5 94.5 58.2 94.5C68.9 94.5 77.7 85.9 77.7 75.1C77.7 64.3 68.9 55.6 58.2 55.6ZM58.2 59.5C66.8 59.5 73.6 66.5 73.6 75C73.6 83.6 66.7 90.6 58.2 90.6C49.7 90.6 42.9 83.5 42.9 75C42.9 66.6 49.6 59.5 58.2 59.5ZM89.2 56.2H85V79.8C85 84 85.4 87.5 88.7 90.6C91.2 93.1 94.9 94.5 98.4 94.5C102.2 94.5 105.9 93 108.5 90.2C111.5 87.1 111.8 83.9 111.8 79.8V56.2H107.6V78.6C107.6 81.6 107.8 84.9 105.8 87.3C104 89.3 101.1 90.6 98.4 90.6C95.7 90.6 92.5 89.3 90.9 87C89.1 84.6 89.2 81.4 89.2 78.6V56.2L89.2 56.2ZM141.5 61.4C139.5 57.7 136 55.6 131.8 55.6C126.2 55.6 121.3 59.3 121.3 65.2C121.3 70.5 125.1 72.8 129.5 74.8L131.8 75.8C135.2 77.4 138.7 78.9 138.7 83.3C138.7 87.7 135 90.6 131 90.6C127 90.6 124 87.5 123.5 83.6L119.4 84.8C120.6 90.6 125.1 94.5 131.1 94.5C137.6 94.5 142.8 89.5 142.8 82.9C142.8 76.9 138.7 74.4 133.9 72.3L131.4 71.2C128.8 70.1 125.5 68.6 125.5 65.3C125.5 61.9 128.4 59.5 131.7 59.5C135 59.5 136.7 61 138.2 63.6L141.5 61.4H141.5L141.5 61.4ZM150.8 93.8H170.2V89.9H155V75.2H169.8V71.3H155V60.1H170.2V56.2H150.8V93.8Z"/>
+    <path fill="currentColor" d="M15 1.8H10.8V31.6C10.8 34.5 10.8 39.4 6.8 39.4C4.8 39.4 3.7 38.5 2.3 37.3L0 40.5C1.9 42.1 4.2 43.3 6.7 43.3C9.2 43.3 11.6 42.2 13.1 40.2C15 37.7 15 34.6 15 31.6V1.8H15ZM42.8 1.1C32.1 1.1 23.2 9.9 23.2 20.6C23.2 31.4 32.1 40 42.8 40C53.5 40 62.3 31.5 62.3 20.6C62.3 9.8 53.5 1.1 42.8 1.1ZM42.8 5C51.4 5 58.1 12.1 58.1 20.6C58.1 29.1 51.3 36.2 42.8 36.2C34.3 36.2 27.4 29.1 27.4 20.6C27.4 12.1 34.2 5 42.8 5ZM74.5 1.8H70.3V25.3C70.3 29.6 70.7 33.1 74 36.2C76.5 38.7 80.2 40 83.7 40C87.5 40 91.2 38.5 93.8 35.8C96.8 32.7 97.1 29.4 97.1 25.3V1.8H92.9V24.2C92.9 27.1 93.1 30.4 91.1 32.8C89.3 34.9 86.4 36.1 83.7 36.1C81 36.1 77.8 34.9 76.2 32.6C74.4 30.2 74.5 27 74.5 24.2V1.8H74.5ZM111.1 5.7H112.4C117.4 5.7 121.9 6.3 121.9 12.5C121.9 18.3 117.1 19.2 112.4 19.2H111.1V5.7H111.1ZM111.1 22.9H112.1L123.5 39.4H128.6L116.7 22.5C122.4 22 126.1 18 126.1 12.2C126.1 3.7 119.5 1.8 112.4 1.8H106.9V39.4H111.1V22.9V22.9ZM136.8 39.4H141.1V10.4L171.5 41.1V1.8H167.1V30.9L136.8 0.2V39.4V39.4ZM203.6 28.7L208 39.4H212.7L195.8 0L178.5 39.4H183.1L187.6 28.7H203.6H203.6ZM202 24.8H189.3L195.7 9.8L202 24.8ZM223.4 1.8H219.2V39.4H233.7V35.5H223.4V1.8ZM244.6 1.8H240.4V39.4H244.6V1.8ZM275 7C273 3.3 269.5 1.1 265.3 1.1C259.8 1.1 254.8 4.9 254.8 10.7C254.8 16.1 258.6 18.4 263 20.4L265.3 21.3C268.7 22.9 272.2 24.4 272.2 28.8C272.2 33.2 268.5 36.2 264.5 36.2C260.5 36.2 257.5 33 257 29.2L252.9 30.3C254.1 36.2 258.6 40.1 264.6 40.1C271.1 40.1 276.4 35 276.4 28.4C276.4 22.5 272.2 20 267.4 17.9L264.9 16.8C262.3 15.6 259 14.1 259 10.9C259 7.4 261.9 5.1 265.2 5.1C268.6 5.1 270.2 6.6 271.7 9.1L275 7L275 7ZM294.9 5.7H304V1.8H281.7V5.7H290.7V39.4H294.9V5.7Z"/>
+    <path fill="currentColor" d="M39.4 148.8V124.9C39.4 116 33.8 110.8 25.2 110.8H3.5V148.8H39.4ZM28 139.4H14.8V120.2H23.4C26.3 120.2 28 121.6 28 124.7V139.4H28ZM61.2 131.9V110.8H43.8V120.2H49.9V131.9H61.2ZM105.7 148.8L94.3 132.4C99 131 101.5 128.2 102.6 123.3C103.4 119 104.2 115 105 110.8H94.1L92 123.2C91.8 124.1 91.2 125.7 90 125.7H89.9L78.2 110.8H65.1L76.7 124.3C71.9 125.7 68.6 130.3 67.8 135.2L65.9 148.8H76.8C77.4 144.2 77.9 139.8 78.6 135.2C78.8 133.7 79.6 131.4 81.4 130.9L92.9 148.8H105.6H105.7ZM128.7 148.8V110.8H109.3V120.2H117.4V139.4H108.2V148.8H128.7ZM150.5 148.8V110.8H133.2V120.2H139.2V148.8H150.6H150.5ZM198.5 148.8V110.8H156.7V120.2H163.7V136.2C163.7 138.3 163.1 139.4 160.9 139.4H156.1V148.8H164.7C172.4 148.8 175 143 175 135.9V120.2H187.2V148.8H198.5ZM220.3 131.9V110.8H203V120.2H209V131.9H220.3ZM263.3 110.8H251.7L251.2 129C250.9 133.7 249.5 139.7 243.8 139.7H243.2L237.3 110.8H225.7L232.4 139.4H225.9V148.8H243.3C257 148.8 262 139.9 262.6 126.9L263.2 110.8H263.3L263.3 110.8ZM303.9 148.8V110.8H269.5V120.2H292.6V148.8H303.9ZM280.8 128.3H269.5V148.8H280.8V128.3Z"/>
+    <path fill="currentColor" d="M242.1 94.4V56.3H199.5V65.8H206.6V81.8C206.6 83.9 206 85 203.7 85H198.8V94.4H207.6C215.5 94.4 218.2 88.5 218.2 81.5V65.8H230.5V94.4H242.1H242.1ZM265.5 77.4V56.3H247.9V65.8H254V77.4H265.5H265.5ZM306 94.4V85H300.1V56.3H271.7V65.8H288.6V85H271.7V94.4H306Z"/>
+  </symbol>
+  <symbol id="chev" viewBox="0 0 40 59">
+    <path fill="currentColor" d="M0.380038 0.726718C1.00031 -0.0850322 2.16095 -0.240137 2.97281 0.380038L38.9728 27.88C39.4309 28.23 39.6994 28.7733 39.6994 29.3498C39.6994 29.9262 39.4309 30.4695 38.9728 30.8195L2.97281 58.3195C2.16095 58.9397 1.00031 58.7846 0.380038 57.9728C-0.240136 57.1609 -0.0850301 56.0003 0.726718 55.38L34.8019 29.3498L0.726718 3.31949C-0.0850322 2.69922 -0.240137 1.53858 0.380038 0.726718Z"/>
+  </symbol>
+</svg>
+<div class="pt" id="pt" aria-hidden="true"><svg viewBox="0 0 306 150"><use href="#jh-logo"/></svg></div>
+
+<header class="topbar">
+  <button class="tb-menu" id="menuBtn" aria-label="Open chapters menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <a class="tb-logo" href="../index.html#top" aria-label="Journalist House – home"><svg viewBox="0 0 306 150"><use href="#jh-logo"/></svg></a>
+  
+  <nav class="tb-right">
+    <a class="tb-link" href="../select-a-residence.html">Select a Residence <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a>
+    <button class="tb-link" type="button" data-inquire>Inquire <svg viewBox="0 0 40 59"><use href="#chev"/></svg></button>
+    <button class="tb-icon" type="button" data-video aria-label="Open video popup"><svg viewBox="0 0 33 33" fill="none"><circle cx="16.5" cy="16.5" r="15.7929" stroke-width="1.41429" stroke="black"/><path d="M13 23L24 16.5L13 10L13 23Z" stroke-width="1.41429" stroke-linecap="round" stroke-linejoin="round" stroke="black"/></svg></button>
+    <a class="tb-icon" href="../see-the-residences.html" aria-label="See the residences"><svg viewBox="0 0 33 30" fill="none"><path d="M8.56497 4.87209L2.79652 4.86318C1.65383 4.86142 0.726562 5.78726 0.726562 6.92995V26.5606C0.726562 27.7021 1.65189 28.6274 2.79333 28.6274H29.6608C30.8022 28.6274 31.7275 27.7021 31.7275 26.5606V6.92955C31.7275 5.78702 30.8005 4.86124 29.658 4.86279L22.7949 4.87209H8.56497Z" stroke-width="1.45319" stroke="black"/><circle cx="16.2272" cy="16.227" r="6.50696" stroke-width="1.45319" stroke="black"/><path d="M8.99365 4.86003L10.97 1.69794C11.3476 1.09366 12.01 0.726562 12.7226 0.726562H20.7652C21.4778 0.726562 22.1402 1.09366 22.5178 1.69794L24.4941 4.86003" stroke-width="1.45319" stroke="black"/></svg></a>
+  </nav>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <div class="menu-extra">
+    <a href="../select-a-residence.html">Select a Residence</a>
+    <a href="../see-the-residences.html">See the Residences</a>
+    <button type="button" data-inquire>Inquire</button>
+  </div>
+  <div class="menu-grid">
+    <a class="tile" style="--i:0" href="../index.html#the-project"><div class="tile-thumb"><img loading="lazy" src="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a788abf20408fc2bfd79c3e_THE%20PROJECT.avif" alt="Modern multi-story building with glass balconies and storefronts at street level on a sunny day."></div><div class="tile-meta"><span class="tile-title">The Project</span><span class="tile-sub">A new landmark in Tel Aviv</span></div></a>
+    <a class="tile" style="--i:1" href="../index.html#the-architects"><div class="tile-thumb"><img loading="lazy" src="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a788abfbecd748dea930045_THE%20ARCHITECTS.avif" alt="The Architects"></div><div class="tile-meta"><span class="tile-title">The Architects</span><span class="tile-sub">Global vision. Local expertise</span></div></a>
+    <a class="tile" style="--i:2" href="../index.html#the-location"><div class="tile-thumb"><img loading="lazy" src="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a788abffb9ecfa5fad3b72c_THE%20LOCATION.avif" alt="The Tel Aviv Museum of Art under a blue sky."></div><div class="tile-meta"><span class="tile-title">The Location</span><span class="tile-sub">At the city's cultural heart</span></div></a>
+    <a class="tile" style="--i:3" href="../index.html#the-building"><div class="tile-thumb"><img loading="lazy" src="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a788abf990004e5defa90b4_THE%20Building.avif" alt="Modern apartment balcony overlooking city buildings and trees."></div><div class="tile-meta"><span class="tile-title">The Building</span><span class="tile-sub">Crafted to become an icon</span></div></a>
+    <a class="tile" style="--i:4" href="../index.html#the-residences"><div class="tile-thumb"><img loading="lazy" src="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a788abf2e5bff50f454cacb_THE%20residences.avif" alt="Modern high-rise building with glass balconies in a dense urban cityscape."></div><div class="tile-meta"><span class="tile-title">The Residences</span><span class="tile-sub">Select a Residence</span></div></a>
+    <a class="tile" style="--i:5" href="../journey-2.html#the-sanctuary"><div class="tile-thumb"><img loading="lazy" src="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a788abf412a551d48216448_THE%20SANCTUARY.avif" alt="Indoor swimming pool with lounge chairs and warm wooden wall accents."></div><div class="tile-meta"><span class="tile-title">The Sanctuary</span><span class="tile-sub">A private world of wellbeing</span></div></a>
+    <a class="tile" style="--i:6" href="../journey-2.html#the-piazza"><div class="tile-thumb"><img loading="lazy" src="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a788abf7e6816676b18ed59_THE%20Piazza.avif" alt="Landscaped plaza at the building entrance."></div><div class="tile-meta"><span class="tile-title">The Piazza</span><span class="tile-sub">An urban garden retreat</span></div></a>
+    <a class="tile" style="--i:7" href="../journey-2.html#the-history"><div class="tile-thumb"><img loading="lazy" src="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a788abf1f6681ee55afcb32_THE%20History.avif" alt="Historic black and white photograph."></div><div class="tile-meta"><span class="tile-title">The History</span><span class="tile-sub">The story lives on</span></div></a>
+    <a class="tile" style="--i:8" href="../journey-2.html#about-us"><div class="tile-thumb"><img loading="lazy" src="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a788abf87400e8bbe3aa61e_ABOUT%20US.avif" alt="Illuminated classic house entrance at dusk."></div><div class="tile-meta"><span class="tile-title">About Us</span><span class="tile-sub">The purchasing group</span></div></a>
+    <a class="tile" style="--i:9" href="#inquire" data-inquire><div class="tile-thumb"><img loading="lazy" src="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a788abf0fce7dcd2b0d502b_INQUIRE.avif" alt=""></div><div class="tile-meta"><span class="tile-title">Inquire</span><span class="tile-sub">Begin the journey</span></div></a>
+  </div>
+  <div class="menu-legal">
+    <a href="../terms-of-use.html">Terms of Use</a><i></i>
+    <a href="../privacy-policy.html">Privacy Policy</a><i></i>
+    <a href="../accessibility-statement.html">Accessibility Statement</a>
+  </div>
+</div>
+
+<div class="page-wrapper"><main class="main-wrapper"><section class="section_plans-hero"><a mt-el="back-history" href="#" class="back-btn w-inline-block"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="16" viewBox="0 0 11 16" fill="none" class="back-btn-arrow"><path d="M10.3438 0.580013L1.19082 7.99704L10.3438 15.4141" stroke="#151515" stroke-width="1.5"></path></svg><div class="back-btn-text">BACK</div></a><div data-pin-length="1.5" data-horizontal-scroll-panel="" data-chapter="the-building" class="building-mockup-div is--floor-plans"><div class="the-building-left-align"><div data-building-stage="" class="floor-plan-img-wrap"><img src="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a721ad9c5044b9439b82dde_Floor%209.png" loading="eager" width="648" height="Auto" alt="" sizes="(max-width: 767px) 100vw, 648px" srcset="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a721ad9c5044b9439b82dde_Floor%209-p-500.png 500w, https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a721ad9c5044b9439b82dde_Floor%209-p-800.png 800w, https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a721ad9c5044b9439b82dde_Floor%209-p-1080.png 1080w, https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a721ad9c5044b9439b82dde_Floor%209.png 1500w" class="floor-plan-bg"><div class="cube-floors-item"><svg xmlns="http://www.w3.org/2000/svg" width="750" height="891" viewBox="0 0 750 891" fill="none" class="floor-plans-svg"><g id="Floor 9 units"><a href="../apartments/801.html" data-floor-hover="unit 801" class="floor-apartment-link"><path id="805" d="M585.5 563L557 550V532.5L508 509V495.5L449 467.5L515 431L513 429.5L518.5 426L512.5 423L529 413L516 406.5L532 397.5L562.5 412.5L633.5 373.5L711.5 410.2V451L749.5 468.5V474L660 522.5L625.5 506.5V541.5L585.5 563Z" fill="white" fill-opacity="0.5"></path></a><a href="../apartments/802.html" data-floor-hover="unit 802" class="floor-apartment-link"><path id="806" d="M430.5 648L393 668L278 614V567.5L348 528.5L317.5 514.5L334.5 504.5L350 512L367 502.5L373.5 505.5L380 502L383 503.5L449 467.5L508 495.5V509L557 532.5V578.767L516.5 600.767L479 583L450 598.5L482.5 614V619.5L430.5 648Z" fill="white" fill-opacity="0.5"></path></a><a href="../apartments/803.html" data-floor-hover="unit 803" class="floor-apartment-link"><path id="807" d="M278 567.5V614L236 594.5V587L205 572.5L205.5 526.5L237 508.5L309 469L359.5 493L338 506L334.5 504.5L317.5 514.5L348 528.5L278 567.5Z" fill="white" fill-opacity="0.5"></path></a><a href="../apartments/804.html" data-floor-hover="unit 804" class="floor-apartment-link"><path id="808" d="M205.5 526.5L205 572.5L164 553.5L157 557L118 538.614V492.5L189 453.5L219.5 468L235.5 459.5V458L259 445L309 469L205.5 526.5Z" fill="white" fill-opacity="0.5"></path></a><a href="../apartments/805.html" data-floor-hover="unit 805" class="floor-apartment-link"><path id="801" d="M118 492.5V538.5L0 483.5V478L35 459V418L90 388L124 404.5V369.5L164.5 347.5L227.5 377L242.5 368.5L301.5 398L235.5 434L238.5 435.5L232 439.5L238.5 442.5L222.5 452L235.5 458V459.5L219.5 468L189 453.5L118 492.5Z" fill="white" fill-opacity="0.5"></path></a><a data-floor-hover="unit 806" class="floor-apartment-link is--unavailable"><path id="802" d="M192.5 332L192 360.5L227.5 377L242.5 368.5L302 398L368.5 361.5L372 363L378.5 359.5L384.5 363L401.5 353L417 360.5L433.5 351L403 336.5L473.5 298L433.5 278.5L398.5 298L321.5 262L267.5 291.5V326.162L233 310L192.5 332Z" fill="white" fill-opacity="0.5"></path></a><a href="../apartments/807.html" data-floor-hover="unit 807" class="floor-apartment-link"><path id="803" d="M413.5 360L391.5 372.5L442 397L514.5 357.5L514 317L473.5 298L403 336.5L433.5 351L417 360.5L416 360H413.5Z" fill="white" fill-opacity="0.5"></path></a><a href="../apartments/808.html" data-floor-hover="unit 808" class="floor-apartment-link"><path id="804" d="M514.5 357.5L442 397L493 421L516 408V406.5L532 397.5L562.5 412.5L633.5 373.5L593 354L554 375.5L546.5 371.5L546 341L516 357L514.5 357.5Z" fill="white" fill-opacity="0.5"></path></a><path id="lobby" d="M238.5 442.5L222.5 452L235.5 458L259 445L359.5 493L338 506L350 512L367 502.5L373.5 505.5L380 502L383 503.5L515 431L513 429.5L518.5 426L512.5 423L529 413L516 406.5V408L493 421L391.5 372.5L413.5 360H416L401.5 353L384.5 363L378.5 359.5L372 363L368.5 361.5L235.5 434L238.5 435.5L232 439.5L238.5 442.5Z" fill="white" fill-opacity="0.5"></path></g></svg><svg xmlns="http://www.w3.org/2000/svg" width="71" height="59" viewBox="0 0 71 59" fill="none" class="north-nav is--floors is--12"><path d="M58.1408 47.8639L24.7691 0.000214289L23.8784 28.0825L0.00381864 42.8949L58.1408 47.8639Z" fill="#303030"></path><path d="M61.3644 58.1873L62.8695 58.1873C63.0367 58.1873 63.1791 58.0612 63.1791 57.9119C63.1791 56.0616 63.1939 54.2112 63.1747 52.3609C63.1667 51.5899 63.1425 50.8189 63.0955 50.0496C63.914 51.4253 64.8557 52.7359 65.793 54.0521C66.7255 55.3611 67.6393 56.6817 68.5903 57.9797C68.7636 58.217 68.9995 58.1867 69.2899 58.1867L70.6514 58.1867C70.8185 58.1867 70.9609 58.0606 70.9609 57.9114L70.9609 46.9079C70.9609 46.8236 70.9256 46.7592 70.8718 46.7151C70.8223 46.6656 70.7486 46.6325 70.6514 46.6325L69.1463 46.6325C68.9791 46.6325 68.8367 46.7586 68.8367 46.9079C68.8367 48.8386 68.8225 50.7694 68.8416 52.7001C68.8491 53.4623 68.8683 54.2239 68.9017 54.985C68.0473 53.5477 67.0511 52.1781 66.0822 50.8002C65.1609 49.4907 64.2396 48.1816 63.319 46.8721C63.2955 46.8385 63.2738 46.8005 63.2466 46.7691C63.1035 46.6055 62.911 46.6325 62.7036 46.6325L61.3644 46.6325C61.1972 46.6325 61.0548 46.7586 61.0548 46.9079L61.0548 57.9119C61.0548 58.0606 61.1966 58.1873 61.3644 58.1873Z" fill="#303030"></path></svg></div></div></div><div class="the-building_text-wrap is--floors"><svg xmlns="http://www.w3.org/2000/svg" width="33" height="51" viewBox="0 0 33 51" fill="none" class="the-building_arrow"><path d="M32.554 50.259C31.8586 51.1172 30.5996 51.2492 29.7415 50.554L0.741465 27.054C0.272845 26.6742 0.000253947 26.1034 0.000253999 25.5002C0.0002552 24.8971 0.272846 24.3263 0.741465 23.9465L29.7415 0.446541C30.5996 -0.248736 31.8586 -0.116662 32.554 0.741463C33.2492 1.59964 33.1172 2.85858 32.259 3.55396L5.17701 25.5002L32.259 47.4465C33.1172 48.1419 33.2492 49.4009 32.554 50.259Z" fill="#151515"></path></svg><div class="the-building_text-wrap-inner"><div data-name-target="" class="the-building_hovered-text">SELECT <br>THE UNIT</div><div class="hidden-data-wrap w-dyn-list"><div role="list" class="units-hover-list w-dyn-items"><div data-slug="808" role="listitem" class="units-hover-move w-dyn-item"><div class="units-details-wrap"><div><div class="units_text-wrapper"><div class="units_medium-text is--hovered">Apartment Area</div><div mt-el="ctx-area" class="units_texts-inner"><div class="units_big-text is--hovered">68</div><div class="units_small-text is--hovered">sqm</div></div></div><div class="units_text-wrapper"><div mt-el="ctx-outdoor-label" class="units_medium-text is--hovered">Balcony Area</div><div mt-el="ctx-outdoor" class="units_texts-inner"><div class="units_big-text is--hovered">12</div><div class="units_small-text is--hovered">sqm</div></div></div><div class="units_text-wrapper"><div mt-el="ctx-outdoor-label" class="units_medium-text is--hovered">Orientation</div><div mt-el="ctx-outdoor" class="units_texts-inner"><div class="units_big-text is--hovered">W</div></div></div></div></div></div><div data-slug="807" role="listitem" class="units-hover-move w-dyn-item"><div class="units-details-wrap"><div><div class="units_text-wrapper"><div class="units_medium-text is--hovered">Apartment Area</div><div mt-el="ctx-area" class="units_texts-inner"><div class="units_big-text is--hovered">55</div><div class="units_small-text is--hovered">sqm</div></div></div><div class="units_text-wrapper"><div mt-el="ctx-outdoor-label" class="units_medium-text is--hovered">Balcony Area</div><div mt-el="ctx-outdoor" class="units_texts-inner"><div class="units_big-text is--hovered">12</div><div class="units_small-text is--hovered">sqm</div></div></div><div class="units_text-wrapper"><div mt-el="ctx-outdoor-label" class="units_medium-text is--hovered">Orientation</div><div mt-el="ctx-outdoor" class="units_texts-inner"><div class="units_big-text is--hovered">W</div></div></div></div></div></div><div data-slug="806" role="listitem" class="units-hover-move w-dyn-item"><div class="units-details-wrap"><div><div class="units_text-wrapper"><div class="units_medium-text is--hovered">Apartment Area</div><div mt-el="ctx-area" class="units_texts-inner"><div class="units_big-text is--hovered">161</div><div class="units_small-text is--hovered">sqm</div></div></div><div class="units_text-wrapper"><div mt-el="ctx-outdoor-label" class="units_medium-text is--hovered">Terrace Area</div><div mt-el="ctx-outdoor" class="units_texts-inner"><div class="units_big-text is--hovered">23</div><div class="units_small-text is--hovered">sqm</div></div></div><div class="units_text-wrapper"><div mt-el="ctx-outdoor-label" class="units_medium-text is--hovered">Orientation</div><div mt-el="ctx-outdoor" class="units_texts-inner"><div class="units_big-text is--hovered">SW</div></div></div></div></div></div><div data-slug="805" role="listitem" class="units-hover-move w-dyn-item"><div class="units-details-wrap"><div><div class="units_text-wrapper"><div class="units_medium-text is--hovered">Apartment Area</div><div mt-el="ctx-area" class="units_texts-inner"><div class="units_big-text is--hovered">161</div><div class="units_small-text is--hovered">sqm</div></div></div><div class="units_text-wrapper"><div mt-el="ctx-outdoor-label" class="units_medium-text is--hovered">Terrace Area</div><div mt-el="ctx-outdoor" class="units_texts-inner"><div class="units_big-text is--hovered">23</div><div class="units_small-text is--hovered">sqm</div></div></div><div class="units_text-wrapper"><div mt-el="ctx-outdoor-label" class="units_medium-text is--hovered">Orientation</div><div mt-el="ctx-outdoor" class="units_texts-inner"><div class="units_big-text is--hovered">SE</div></div></div></div></div></div><div data-slug="804" role="listitem" class="units-hover-move w-dyn-item"><div class="units-details-wrap"><div><div class="units_text-wrapper"><div class="units_medium-text is--hovered">Apartment Area</div><div mt-el="ctx-area" class="units_texts-inner"><div class="units_big-text is--hovered">55</div><div class="units_small-text is--hovered">sqm</div></div></div><div class="units_text-wrapper"><div mt-el="ctx-outdoor-label" class="units_medium-text is--hovered">Balcony Area</div><div mt-el="ctx-outdoor" class="units_texts-inner"><div class="units_big-text is--hovered">12</div><div class="units_small-text is--hovered">sqm</div></div></div><div class="units_text-wrapper"><div mt-el="ctx-outdoor-label" class="units_medium-text is--hovered">Orientation</div><div mt-el="ctx-outdoor" class="units_texts-inner"><div class="units_big-text is--hovered">E</div></div></div></div></div></div><div data-slug="803" role="listitem" class="units-hover-move w-dyn-item"><div class="units-details-wrap"><div><div class="units_text-wrapper"><div class="units_medium-text is--hovered">Apartment Area</div><div mt-el="ctx-area" class="units_texts-inner"><div class="units_big-text is--hovered">55</div><div class="units_small-text is--hovered">sqm</div></div></div><div class="units_text-wrapper"><div mt-el="ctx-outdoor-label" class="units_medium-text is--hovered">Balcony Area</div><div mt-el="ctx-outdoor" class="units_texts-inner"><div class="units_big-text is--hovered">12</div><div class="units_small-text is--hovered">sqm</div></div></div><div class="units_text-wrapper"><div mt-el="ctx-outdoor-label" class="units_medium-text is--hovered">Orientation</div><div mt-el="ctx-outdoor" class="units_texts-inner"><div class="units_big-text is--hovered">E</div></div></div></div></div></div><div data-slug="802" role="listitem" class="units-hover-move w-dyn-item"><div class="units-details-wrap"><div><div class="units_text-wrapper"><div class="units_medium-text is--hovered">Apartment Area</div><div mt-el="ctx-area" class="units_texts-inner"><div class="units_big-text is--hovered">153</div><div class="units_small-text is--hovered">sqm</div></div></div><div class="units_text-wrapper"><div mt-el="ctx-outdoor-label" class="units_medium-text is--hovered">Terrace Area</div><div mt-el="ctx-outdoor" class="units_texts-inner"><div class="units_big-text is--hovered">31</div><div class="units_small-text is--hovered">sqm</div></div></div><div class="units_text-wrapper"><div mt-el="ctx-outdoor-label" class="units_medium-text is--hovered">Orientation</div><div mt-el="ctx-outdoor" class="units_texts-inner"><div class="units_big-text is--hovered">NE</div></div></div></div></div></div><div data-slug="801" role="listitem" class="units-hover-move w-dyn-item"><div class="units-details-wrap"><div><div class="units_text-wrapper"><div class="units_medium-text is--hovered">Apartment Area</div><div mt-el="ctx-area" class="units_texts-inner"><div class="units_big-text is--hovered">153</div><div class="units_small-text is--hovered">sqm</div></div></div><div class="units_text-wrapper"><div mt-el="ctx-outdoor-label" class="units_medium-text is--hovered">Terrace Area</div><div mt-el="ctx-outdoor" class="units_texts-inner"><div class="units_big-text is--hovered">31</div><div class="units_small-text is--hovered">sqm</div></div></div><div class="units_text-wrapper"><div mt-el="ctx-outdoor-label" class="units_medium-text is--hovered">Orientation</div><div mt-el="ctx-outdoor" class="units_texts-inner"><div class="units_big-text is--hovered">NW</div></div></div></div></div></div></div></div></div></div></div><div class="mobile-data-wrap"><div unit-data-wrap="" class="type-mobile_controls-wrap is--top"><div class="w-dyn-list"><div role="list" class="type-mobile_controls w-dyn-items"><div data-slug="808" role="listitem" class="units-hover-move w-dyn-item"><div class="type-mobile_data-wrap"><div class="type-mobile_data-div is--top-left"><div class="type-mobile_unit-head">Apartment Area</div></div><div class="type-mobile_data-div is--top-center"><div class="type-mobile_unit-head">Balcony Area</div></div><div class="type-mobile_data-div is--top-right"><div class="type-mobile_unit-head">ORIENTATION</div></div><div class="type-mobile_data-div is--bottom-left"><div data-apartment-area="" class="type-mobile_unit-data">68</div><div class="type-mobile_unit-head is--sqm">sqm</div></div><div class="type-mobile_data-div is--bottom-center"><div data-balcony-area="" class="type-mobile_unit-data">12</div><div class="type-mobile_unit-head is--sqm">sqm</div></div><div class="type-mobile_data-div is--bottom-right"><div data-orientation="" class="type-mobile_unit-data">W</div></div></div></div><div data-slug="807" role="listitem" class="units-hover-move w-dyn-item"><div class="type-mobile_data-wrap"><div class="type-mobile_data-div is--top-left"><div class="type-mobile_unit-head">Apartment Area</div></div><div class="type-mobile_data-div is--top-center"><div class="type-mobile_unit-head">Balcony Area</div></div><div class="type-mobile_data-div is--top-right"><div class="type-mobile_unit-head">ORIENTATION</div></div><div class="type-mobile_data-div is--bottom-left"><div data-apartment-area="" class="type-mobile_unit-data">55</div><div class="type-mobile_unit-head is--sqm">sqm</div></div><div class="type-mobile_data-div is--bottom-center"><div data-balcony-area="" class="type-mobile_unit-data">12</div><div class="type-mobile_unit-head is--sqm">sqm</div></div><div class="type-mobile_data-div is--bottom-right"><div data-orientation="" class="type-mobile_unit-data">W</div></div></div></div><div data-slug="806" role="listitem" class="units-hover-move w-dyn-item"><div class="type-mobile_data-wrap"><div class="type-mobile_data-div is--top-left"><div class="type-mobile_unit-head">Apartment Area</div></div><div class="type-mobile_data-div is--top-center"><div class="type-mobile_unit-head">Terrace Area</div></div><div class="type-mobile_data-div is--top-right"><div class="type-mobile_unit-head">ORIENTATION</div></div><div class="type-mobile_data-div is--bottom-left"><div data-apartment-area="" class="type-mobile_unit-data">161</div><div class="type-mobile_unit-head is--sqm">sqm</div></div><div class="type-mobile_data-div is--bottom-center"><div data-balcony-area="" class="type-mobile_unit-data">23</div><div class="type-mobile_unit-head is--sqm">sqm</div></div><div class="type-mobile_data-div is--bottom-right"><div data-orientation="" class="type-mobile_unit-data">SW</div></div></div></div><div data-slug="805" role="listitem" class="units-hover-move w-dyn-item"><div class="type-mobile_data-wrap"><div class="type-mobile_data-div is--top-left"><div class="type-mobile_unit-head">Apartment Area</div></div><div class="type-mobile_data-div is--top-center"><div class="type-mobile_unit-head">Terrace Area</div></div><div class="type-mobile_data-div is--top-right"><div class="type-mobile_unit-head">ORIENTATION</div></div><div class="type-mobile_data-div is--bottom-left"><div data-apartment-area="" class="type-mobile_unit-data">161</div><div class="type-mobile_unit-head is--sqm">sqm</div></div><div class="type-mobile_data-div is--bottom-center"><div data-balcony-area="" class="type-mobile_unit-data">23</div><div class="type-mobile_unit-head is--sqm">sqm</div></div><div class="type-mobile_data-div is--bottom-right"><div data-orientation="" class="type-mobile_unit-data">SE</div></div></div></div><div data-slug="804" role="listitem" class="units-hover-move w-dyn-item"><div class="type-mobile_data-wrap"><div class="type-mobile_data-div is--top-left"><div class="type-mobile_unit-head">Apartment Area</div></div><div class="type-mobile_data-div is--top-center"><div class="type-mobile_unit-head">Balcony Area</div></div><div class="type-mobile_data-div is--top-right"><div class="type-mobile_unit-head">ORIENTATION</div></div><div class="type-mobile_data-div is--bottom-left"><div data-apartment-area="" class="type-mobile_unit-data">55</div><div class="type-mobile_unit-head is--sqm">sqm</div></div><div class="type-mobile_data-div is--bottom-center"><div data-balcony-area="" class="type-mobile_unit-data">12</div><div class="type-mobile_unit-head is--sqm">sqm</div></div><div class="type-mobile_data-div is--bottom-right"><div data-orientation="" class="type-mobile_unit-data">E</div></div></div></div><div data-slug="803" role="listitem" class="units-hover-move w-dyn-item"><div class="type-mobile_data-wrap"><div class="type-mobile_data-div is--top-left"><div class="type-mobile_unit-head">Apartment Area</div></div><div class="type-mobile_data-div is--top-center"><div class="type-mobile_unit-head">Balcony Area</div></div><div class="type-mobile_data-div is--top-right"><div class="type-mobile_unit-head">ORIENTATION</div></div><div class="type-mobile_data-div is--bottom-left"><div data-apartment-area="" class="type-mobile_unit-data">55</div><div class="type-mobile_unit-head is--sqm">sqm</div></div><div class="type-mobile_data-div is--bottom-center"><div data-balcony-area="" class="type-mobile_unit-data">12</div><div class="type-mobile_unit-head is--sqm">sqm</div></div><div class="type-mobile_data-div is--bottom-right"><div data-orientation="" class="type-mobile_unit-data">E</div></div></div></div><div data-slug="802" role="listitem" class="units-hover-move w-dyn-item"><div class="type-mobile_data-wrap"><div class="type-mobile_data-div is--top-left"><div class="type-mobile_unit-head">Apartment Area</div></div><div class="type-mobile_data-div is--top-center"><div class="type-mobile_unit-head">Terrace Area</div></div><div class="type-mobile_data-div is--top-right"><div class="type-mobile_unit-head">ORIENTATION</div></div><div class="type-mobile_data-div is--bottom-left"><div data-apartment-area="" class="type-mobile_unit-data">153</div><div class="type-mobile_unit-head is--sqm">sqm</div></div><div class="type-mobile_data-div is--bottom-center"><div data-balcony-area="" class="type-mobile_unit-data">31</div><div class="type-mobile_unit-head is--sqm">sqm</div></div><div class="type-mobile_data-div is--bottom-right"><div data-orientation="" class="type-mobile_unit-data">NE</div></div></div></div><div data-slug="801" role="listitem" class="units-hover-move w-dyn-item"><div class="type-mobile_data-wrap"><div class="type-mobile_data-div is--top-left"><div class="type-mobile_unit-head">Apartment Area</div></div><div class="type-mobile_data-div is--top-center"><div class="type-mobile_unit-head">Terrace Area</div></div><div class="type-mobile_data-div is--top-right"><div class="type-mobile_unit-head">ORIENTATION</div></div><div class="type-mobile_data-div is--bottom-left"><div data-apartment-area="" class="type-mobile_unit-data">153</div><div class="type-mobile_unit-head is--sqm">sqm</div></div><div class="type-mobile_data-div is--bottom-center"><div data-balcony-area="" class="type-mobile_unit-data">31</div><div class="type-mobile_unit-head is--sqm">sqm</div></div><div class="type-mobile_data-div is--bottom-right"><div data-orientation="" class="type-mobile_unit-data">NW</div></div></div></div></div></div></div><div class="type-mobile_controls-wrap"><div class="floor-tag"><div class="type-mobile_head">Floor</div><div class="type-mobile_head">8</div><div class="type-mobile_head">-</div><div class="type-mobile_head">SELECT THE UNIT</div></div><div class="type-mobile_controls"><button type="button" data-floor-down="" aria-label="Floor down" class="type-mobile_btn"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="30" viewBox="0 0 64 30" fill="none" class="type-mobile_btn-arrow"><path d="M39.0741 20.3031C39.2994 20.1435 39.3528 19.8311 39.1932 19.6058L33.7479 11.9193C33.6542 11.787 33.5019 11.7083 33.3397 11.7083C33.1775 11.7083 33.0252 11.787 32.9315 11.9193L27.4862 19.6058C27.3266 19.8311 27.38 20.1435 27.6053 20.3031C27.8306 20.4626 28.143 20.4092 28.3026 20.1839L33.3397 13.0746L38.3768 20.1839C38.5364 20.4092 38.8487 20.4626 39.0741 20.3031Z" fill="#151515"></path></svg></button><div class="type-mobile_floor-level"><div data-floor-level="" class="type-mobile_floor-level-txt">000</div></div><button type="button" data-floor-up="" aria-label="Floor up" class="type-mobile_btn"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="30" viewBox="0 0 64 30" fill="none" class="type-mobile_btn-arrow"><path d="M39.0741 11.8004C39.2994 11.9601 39.3528 12.2724 39.1932 12.4977L33.7479 20.1842C33.6542 20.3166 33.5019 20.3952 33.3397 20.3952C33.1775 20.3952 33.0252 20.3166 32.9315 20.1842L27.4862 12.4977C27.3266 12.2724 27.38 11.9601 27.6053 11.8004C27.8306 11.6409 28.143 11.6943 28.3026 11.9196L33.3397 19.029L38.3768 11.9196C38.5364 11.6943 38.8487 11.6409 39.0741 11.8004Z" fill="#151515"></path></svg></button></div><button data-floor-enter="" type="button" aria-label="Enter Floor" class="type-mobile_enter-btn is--disabled">ENTER UNIT</button></div></div></section><div class="hide"><div data-unit-status-list="a" class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1001"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1002"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1003"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1004"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1005"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1006"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1007"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1008"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1206"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1301"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1302"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1401"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1402"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1403"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1404"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1405"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1406"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1501"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1502"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1503"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1504"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1505"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1506"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1604"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1704"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1804"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1901"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1903"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="503"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="608"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="806"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="901"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="902"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="903"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="904"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="905"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="906"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="907"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="908"></div></div></div></div><div data-unit-status-list="b" class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="908"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="907"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="906"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="905"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="904"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="903"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="902"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="901"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="806"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="608"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="503"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1903"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1901"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1804"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1704"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1604"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1506"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1505"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1504"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1503"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1502"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1501"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1406"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1405"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1404"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1403"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1402"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1401"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1302"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1301"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1206"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1008"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1007"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1006"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1005"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1004"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1003"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1002"></div></div><div role="listitem" class="w-dyn-item"><div data-status="Unavailable" data-slug="1001"></div></div></div></div></div></main></div>
+
+<div class="modal" id="inquire" role="dialog" aria-modal="true" aria-label="Inquire" aria-hidden="true">
+  <div class="modal-bg" data-close></div>
+  <div class="inq">
+    <div class="inq-img"><img loading="lazy" src="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a61ea6b52fd4d666ef879f9_Contact%20Us%20%7C%20Visual.avif" alt=""></div>
+    <div class="inq-form">
+      <form class="inq-f" novalidate>
+        <input type="hidden" name="Residence" value="">
+        <h2>Inquire</h2>
+        <div class="fields">
+          <input class="fld" type="text" name="First-Name" placeholder="First Name*" required autocomplete="given-name">
+          <input class="fld" type="text" name="Last-Name" placeholder="Last Name*" required autocomplete="family-name">
+          <input class="fld" type="email" name="Email" placeholder="Email*" required autocomplete="email">
+          <input class="fld" type="tel" name="Phone-Number" placeholder="Phone Number*" required autocomplete="tel">
+          <select class="fld full" name="Interested-in" required>
+            <option value="">Interested in:*</option>
+            <option>The Penthouse</option><option>Crown Residences</option><option>Double-Height Villas</option><option>Urban Residences</option><option>Garden Terraces</option><option>Other</option>
+          </select>
+        </div>
+        <label class="chk"><input type="checkbox" name="Privacy-Checkbox" required><span>The personal information I submit will be processed in accordance with our <a href="../privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>, which describes the purposes and legal bases for processing, the categories of recipients with whom the information may be shared, and my data rights</span></label>
+        <label class="chk"><input type="checkbox" name="Marketing-Checkbox" required><span>I consent to receive marketing communications, updates, and promotional offers from journalist-house by email, SMS, WhatsApp, and other electronic means. I understand that I may withdraw my consent at any time.</span></label>
+        <button class="submit" type="submit">Submit <svg viewBox="0 0 40 59"><use href="#chev"/></svg></button>
+        <div class="inq-bottom"><span>8 Shaul HaMelech St., Tel Aviv</span><span>|</span><a href="tel:+97235040045">+972-3-5040045</a><span>|</span><a href="mailto:info@journalist-house.com">info@journalist-house.com</a></div>
+      </form>
+      <div class="inq-note" aria-live="polite"><b></b><span></span></div>
+    </div>
+    <button class="x" type="button" data-close aria-label="Close"><svg viewBox="0 0 37 36" fill="none"><line x1="2" y1="1" x2="35" y2="34" stroke="currentColor" stroke-width="3"/><line x1="35" y1="1" x2="2" y2="34" stroke="currentColor" stroke-width="3"/></svg></button>
+  </div>
+</div>
+
+
+<div class="modal vid" id="video" role="dialog" aria-modal="true" aria-label="Film" aria-hidden="true">
+  <div class="modal-bg" data-close></div>
+  <div class="vid-frame" id="vidFrame"></div>
+  <button class="x" type="button" data-close aria-label="Close"><svg viewBox="0 0 37 36" fill="none"><line x1="2" y1="1" x2="35" y2="34" stroke="currentColor" stroke-width="3"/><line x1="35" y1="1" x2="2" y2="34" stroke="currentColor" stroke-width="3"/></svg></button>
+</div>
+
+<!-- ================= COOKIES ================= -->
+<div class="cookies" id="cookies">
+  <div class="cookies-in">
+    <p>We use cookies and similar technologies to operate our website, analyze traffic, enhance your browsing experience, and, subject to your consent, deliver personalized content and advertising. You can accept all cookies, reject non-essential cookies, or manage your preferences at any time in the Cookie Settings. For more information, please see our <a href="../privacy-policy.html">Privacy Policy</a></p>
+    <button type="button" id="cookieOk">I Understand</button>
+  </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>window.JH_BASE = new URL('../', location.href).pathname;</script>
+<script src="../js/orig/floors.js?v=e108acc8"></script>
+<script src="../js/site.js?v=e108acc8"></script>
+</body>
+</html>

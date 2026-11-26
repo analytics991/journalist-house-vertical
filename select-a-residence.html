@@ -10,10 +10,296 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400&display=swap" rel="stylesheet">
-<script>document.documentElement.className += ' js';</script>
-<link rel="stylesheet" href="css/site.css?v=7db7beed">
+<script>document.documentElement.className += ' js';try{if(sessionStorage.getItem('jh-pt')){sessionStorage.removeItem('jh-pt');document.documentElement.className += ' pt-in';}}catch(e){}</script>
+<link rel="stylesheet" href="css/orig.css?v=e108acc8">
+<link rel="stylesheet" href="css/site.css?v=e108acc8">
+<style>
+  :root {
+    --font-from: 10;
+    --font-to: 10;
+    --vw-from: calc(1920 / 100);
+    --vw-to: calc(2849 / 100);
+    --coefficient: calc((var(--font-to) - var(--font-from)) / (var(--vw-to) - var(--vw-from)));
+    --base: calc((var(--font-from) - var(--vw-from) * var(--coefficient)) / 16);
+  }
+
+  html {
+    font-size: calc(var(--base) * 1rem + var(--coefficient) * 1vw);
+  }
+
+  @media screen and (max-width: 1920px) {
+    :root {
+      --font-from: 6;
+      --font-to: 10;
+      --vw-from: calc(991 / 100);
+      --vw-to: calc(1920 / 100);
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    :root {
+      --font-from: 10;
+      --font-to: 10;
+      --vw-from: calc(1 / 100);
+      --vw-to: calc(991 / 100);
+    }
+  }
+  @media screen and (min-width: 992px) {
+    .chapter-tile:hover .chapter-link-arrow {
+      transform: translate(0rem, 0px);
+    }
+  }
+</style>
+
+<style>
+  /* Remove gray tap highlight on iOS */
+  a,
+  button,
+  input,
+  textarea,
+  .contact-us_x-wrapper {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  a,
+  button {
+    outline: 0;
+  }
+
+  /* Make text look crisper and more legible in all browsers */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smoothing: antialiased;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
+  }
+  html.is-preloading {
+    overflow: hidden;
+  }
+</style>
+<style>
+  .wf-design-mode .loader {
+    display: none;
+  }
+  /* Add auto overflow in webflow to make editing easier */
+  .wf-design-mode [data-horizontal-scroll-wrap] {
+    overflow: auto;
+  }
+  [data-load-reset] {
+    opacity: 0;
+  }
+
+  .chapter-tile__thumb-wrapper:hover .chapter-tile__thumb {
+    transform: scale(1.05);
+  }
+
+  /* .chapter-tile:hover .chapter-link-arrow {
+    transform: translate(0rem, 0px);
+  } */
+  .chapter-tile:hover .chapter-link-hovered {
+    opacity: 1;
+  }
+</style>
+
+<style>
+  /* Chapter menu — always legible on any background.
+   White ink + difference blend = the menu paints as the inverse of whatever is
+   behind it, so it stays visible over any colour or full-bleed image. */
+  .chapter-menu-c {
+    mix-blend-mode: difference;
+    background-color: transparent; /* any solid bg here would blend and kill the effect */
+  }
+  /* Ink must be white so 'difference' inverts the backdrop into a contrasting colour. */
+  .chapter-menu-c {
+    color: #fff;
+  } /* label text */
+  .chapter-menu-c .chapter-track {
+    background-color: rgba(255, 255, 255, 0.35);
+  } /* faint line */
+  .chapter-menu-c .chapter-track-fake {
+    background-color: rgba(255, 255, 255, 0.35);
+  } /* faint line */
+
+  .chapter-menu-c .chapter-track-fake.is--journy-2 {
+    background-color: #fff;
+  } /* faint line */
+  .chapter-menu-c .chapter-fill {
+    background-color: #fff;
+  } /* progress fill */
+
+  /* Scroll-lock while the Inquire modal is open (Lenis is stopped; this kills native fallback scroll) */
+  html.is-inquire-open {
+    overflow: hidden;
+    scrollbar-gutter: stable;
+  }
+  /* Modal hidden until JS takes over */
+  [mt-el='inquire-modal'] {
+    display: none;
+  }
+
+  #language-bar,
+  .enable-bottomlinks-feedback,
+  .enable-toolbar-links-section.enable-toolbar-link-powered-by,
+  .keyboard-shorcut {
+    display: none !important;
+  }
+</style>
+
+<!-- Mobile Sliders thumbs and scrollbars -->
+<style>
+  @media (max-width: 991px) {
+    [data-scrollbar] {
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+    }
+    [data-scrollbar]::-webkit-scrollbar {
+      display: none;
+    }
+    [data-scrollbar] > * {
+      flex-shrink: 0;
+    }
+  }
+
+  /* Override per slider by setting these variables on the slider's parent */
+  [data-scrollbar-track] {
+    position: relative;
+    width: var(--scrollbar-track-width, calc(100% - 4rem));
+    height: 3px;
+    margin: var(--scrollbar-gap, 24px) auto 0;
+  }
+  [data-scrollbar-track]::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 1px;
+    height: 1px;
+    background: #ddd8d7;
+  }
+  [data-scrollbar-thumb] {
+    position: relative;
+    width: 40px;
+    height: 100%;
+    background: #000;
+    touch-action: none;
+  }
+
+  @media (min-width: 992px) {
+    [data-scrollbar-track] {
+      display: none;
+    }
+  }
+</style>
+<style>
+  /* ── Building floors — inverse hover highlight ──────────────────────────
+     Each floor's overlay (.the-building__veil) is hidden by default. Hovering
+     one floor reveals every OTHER floor's veil (dims the rest of the building),
+     leaving the hovered floor clear. */
+
+  /* 1. All floor veils hidden by default */
+  .the-building__veil {
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  /* 2. When any floor is hovered, reveal every veil EXCEPT the hovered one.
+        The hovered floor keeps its default opacity: 0 (stays clear). */
+  body:has(.the-building_link:hover) .the-building__veil:not(:hover) {
+    opacity: 1;
+  }
+  @media (hover: none) {
+    /* iOS fires :hover on first tap; the desktop reveal then flips the selected
+     veil clear→dim, cancelling the tap. Pin it clear so nothing changes on tap. */
+    body:has(.the-building_link:hover) .the-building__veil.is--selected {
+      opacity: 0;
+    }
+  }
+
+  @media (hover: none) {
+    a,
+    button,
+    [role='button'],
+    input,
+    textarea,
+    select,
+    .the-building_link,
+    [data-floor-hover],
+    .type-mobile_btn {
+      -webkit-tap-highlight-color: transparent;
+    }
+  }
+  a:focus-visible,
+  button:focus-visible,
+  [role='button']:focus-visible,
+  .type-mobile_btn:focus-visible {
+    outline: 2px solid currentColor; /* swap for brand color */
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 991px) {
+    .the-building__veil {
+      opacity: 1;
+    }
+    .the-building__veil.is--selected {
+      opacity: 0;
+    }
+  }
+  /* Fixed height so the building fits to HEIGHT (defeats the circular measure).
+   If your navbar is IN-FLOW above this section use calc(100svh - <navbar height>);
+   if it's fixed/overlaid, keep 100svh. */
+  @media (max-width: 991px), (pointer: coarse) {
+    [data-building-layout] {
+      height: 100svh;
+    }
+  }
+  /* Controls are mobile-only — rule MIRRORS the JS so iPad landscape (coarse ≥992px) keeps them. */
+  @media (min-width: 992px) and (pointer: fine) {
+    .type-mobile_controls-wrap {
+      display: none !important;
+    }
+  }
+  .type-mobile_btn[disabled],
+  .type-mobile_btn[aria-disabled='true'],
+  .type-mobile_btn.is--disabled {
+    opacity: 0.35;
+    pointer-events: none;
+    cursor: default;
+  }
+</style>
+
+<style>
+  body.orig main{max-width:none}
+  body.orig main img{display:inline-block}
+  body.orig .main-wrapper{min-height:calc(100vh - var(--bar))}
+  body.orig .section_plans-hero{min-height:calc(100svh - var(--bar))}
+  @media (min-width:992px){
+    body.orig .section_units{width:100%;height:calc(100vh - var(--bar))}
+    body.orig .building-mockup-div{height:calc(100vh - var(--bar))}
+  }
+  @media (max-width:991px){
+    body.orig .section_plans-hero,body.orig .section_units{padding-top:3rem}
+    body.orig .back-btn{top:1rem}
+  }
+</style>
 </head>
-<body id="top" data-chapters="">
+<body id="top" class="orig" data-chapters="">
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="jh-logo" viewBox="0 0 306 150">
@@ -26,6 +312,7 @@
     <path fill="currentColor" d="M0.380038 0.726718C1.00031 -0.0850322 2.16095 -0.240137 2.97281 0.380038L38.9728 27.88C39.4309 28.23 39.6994 28.7733 39.6994 29.3498C39.6994 29.9262 39.4309 30.4695 38.9728 30.8195L2.97281 58.3195C2.16095 58.9397 1.00031 58.7846 0.380038 57.9728C-0.240136 57.1609 -0.0850301 56.0003 0.726718 55.38L34.8019 29.3498L0.726718 3.31949C-0.0850322 2.69922 -0.240137 1.53858 0.380038 0.726718Z"/>
   </symbol>
 </svg>
+<div class="pt" id="pt" aria-hidden="true"><svg viewBox="0 0 306 150"><use href="#jh-logo"/></svg></div>
 
 <header class="topbar">
   <button class="tb-menu" id="menuBtn" aria-label="Open chapters menu" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -64,107 +351,7 @@
   </div>
 </div>
 
-<main>
-  <a class="back" href="index.html#the-residences"><svg viewBox="0 0 40 59" style="transform:scaleX(-1)"><use href="#chev"/></svg>Back</a>
-  <section class="pick">
-    <div class="tower-stage-wrap"><div class="stage">
-      <img src="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a61fe0e07bd3dfc7ac9c471_building-img.avif" alt="Journalist House – choose a section of the building">
-      <div class="veil-link" style="top:69.1%;height:30.9%;pointer-events:none"></div>
-      <a class="veil-link" href="#the-penthouse" data-name="The Penthouse" style="top:11.8%;height:5.9%" aria-label="The Penthouse"></a>
-      <a class="veil-link" href="#crown-residences" data-name="Crown Residences" style="top:17.7%;height:14.0%" aria-label="Crown Residences"></a>
-      <a class="veil-link" href="#double-height-villas" data-name="Double-Height Villas" style="top:31.7%;height:27.6%" aria-label="Double-Height Villas"></a>
-      <a class="veil-link" href="#urban-residences" data-name="Urban Residences" style="top:59.3%;height:6.9%" aria-label="Urban Residences"></a>
-      <a class="veil-link" href="#garden-terraces" data-name="Garden Terraces" style="top:66.2%;height:2.9%" aria-label="Garden Terraces"></a>
-    </div></div>
-    <div class="pick-side"><svg viewBox="0 0 40 59"><use href="#chev"/></svg><div class="pick-text" id="pickText">Select<br>the section</div></div>
-  </section>
-  <section class="sect" id="garden-terraces">
-    <div class="sect-head"><h2 class="h2 rv">Garden Terraces</h2><span>Floor 5</span></div>
-    <div class="floor" id="floor-5">
-      <div class="floor-img"><img class="rv" loading="lazy" src="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a949b7652587a66ac9f538f_floor%205.png" alt="Floor 5 plan"></div>
-      <div><h3>Floor 5</h3><table class="units"><thead><tr><th>Residence</th><th class="hide-m">Orientation</th><th>Apartment</th><th>Outdoor</th><th></th></tr></thead><tbody><tr><td><a href="apartments/501.html">501</a></td><td class="hide-m"><a href="apartments/501.html">NW</a></td><td><a href="apartments/501.html">64 sqm</a></td><td><a href="apartments/501.html">25 sqm terrace</a></td><td class="go"><a href="apartments/501.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/502.html">502</a></td><td class="hide-m"><a href="apartments/502.html">N</a></td><td><a href="apartments/502.html">69 sqm</a></td><td><a href="apartments/502.html">13 sqm terrace</a></td><td class="go"><a href="apartments/502.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr class="na"><td><span>503</span></td><td class="hide-m"><span>NE</span></td><td><span>133 sqm</span></td><td><span>51 sqm terrace</span></td><td class="go"><span>Unavailable</span></td></tr><tr><td><a href="apartments/504.html">504</a></td><td class="hide-m"><a href="apartments/504.html">E</a></td><td><a href="apartments/504.html">55 sqm</a></td><td><a href="apartments/504.html">36 sqm terrace</a></td><td class="go"><a href="apartments/504.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/505.html">505</a></td><td class="hide-m"><a href="apartments/505.html">E</a></td><td><a href="apartments/505.html">55 sqm</a></td><td><a href="apartments/505.html">36 sqm terrace</a></td><td class="go"><a href="apartments/505.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/506.html">506</a></td><td class="hide-m"><a href="apartments/506.html">SE</a></td><td><a href="apartments/506.html">142 sqm</a></td><td><a href="apartments/506.html">94 sqm terrace</a></td><td class="go"><a href="apartments/506.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/507.html">507</a></td><td class="hide-m"><a href="apartments/507.html">SW</a></td><td><a href="apartments/507.html">142 sqm</a></td><td><a href="apartments/507.html">78 sqm terrace</a></td><td class="go"><a href="apartments/507.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/508.html">508</a></td><td class="hide-m"><a href="apartments/508.html">W</a></td><td><a href="apartments/508.html">55 sqm</a></td><td><a href="apartments/508.html">26 sqm terrace</a></td><td class="go"><a href="apartments/508.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/509.html">509</a></td><td class="hide-m"><a href="apartments/509.html">W</a></td><td><a href="apartments/509.html">55 sqm</a></td><td><a href="apartments/509.html">26 sqm terrace</a></td><td class="go"><a href="apartments/509.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr></tbody></table></div>
-    </div>
-  </section>
-  <section class="sect" id="urban-residences">
-    <div class="sect-head"><h2 class="h2 rv">Urban Residences</h2><span>Floors 6 to 7</span></div>
-    <div class="floor" id="floor-6">
-      <div class="floor-img"><img class="rv" loading="lazy" src="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a7218b74673baae4df2d1c8_Frame%20167.png" alt="Floor 6 plan"></div>
-      <div><h3>Floor 6</h3><table class="units"><thead><tr><th>Residence</th><th class="hide-m">Orientation</th><th>Apartment</th><th>Outdoor</th><th></th></tr></thead><tbody><tr><td><a href="apartments/601.html">601</a></td><td class="hide-m"><a href="apartments/601.html">NW</a></td><td><a href="apartments/601.html">65 sqm</a></td><td><a href="apartments/601.html">12 sqm balcony</a></td><td class="go"><a href="apartments/601.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/602.html">602</a></td><td class="hide-m"><a href="apartments/602.html">N</a></td><td><a href="apartments/602.html">85 sqm</a></td><td><a href="apartments/602.html">12 sqm balcony</a></td><td class="go"><a href="apartments/602.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/603.html">603</a></td><td class="hide-m"><a href="apartments/603.html">N</a></td><td><a href="apartments/603.html">85 sqm</a></td><td><a href="apartments/603.html">12 sqm balcony</a></td><td class="go"><a href="apartments/603.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/604.html">604</a></td><td class="hide-m"><a href="apartments/604.html">NE</a></td><td><a href="apartments/604.html">65 sqm</a></td><td><a href="apartments/604.html">12 sqm balcony</a></td><td class="go"><a href="apartments/604.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/605.html">605</a></td><td class="hide-m"><a href="apartments/605.html">E</a></td><td><a href="apartments/605.html">55 sqm</a></td><td><a href="apartments/605.html">12 sqm balcony</a></td><td class="go"><a href="apartments/605.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/606.html">606</a></td><td class="hide-m"><a href="apartments/606.html">E</a></td><td><a href="apartments/606.html">55 sqm</a></td><td><a href="apartments/606.html">12 sqm balcony</a></td><td class="go"><a href="apartments/606.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/607.html">607</a></td><td class="hide-m"><a href="apartments/607.html">SE</a></td><td><a href="apartments/607.html">65 sqm</a></td><td><a href="apartments/607.html">12 sqm balcony</a></td><td class="go"><a href="apartments/607.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr class="na"><td><span>608</span></td><td class="hide-m"><span>S</span></td><td><span>85 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr><td><a href="apartments/609.html">609</a></td><td class="hide-m"><a href="apartments/609.html">S</a></td><td><a href="apartments/609.html">85 sqm</a></td><td><a href="apartments/609.html">12 sqm balcony</a></td><td class="go"><a href="apartments/609.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/610.html">610</a></td><td class="hide-m"><a href="apartments/610.html">SW</a></td><td><a href="apartments/610.html">65 sqm</a></td><td><a href="apartments/610.html">12 sqm balcony</a></td><td class="go"><a href="apartments/610.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/611.html">611</a></td><td class="hide-m"><a href="apartments/611.html">W</a></td><td><a href="apartments/611.html">55 sqm</a></td><td><a href="apartments/611.html">12 sqm balcony</a></td><td class="go"><a href="apartments/611.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/612.html">612</a></td><td class="hide-m"><a href="apartments/612.html">W</a></td><td><a href="apartments/612.html">55 sqm</a></td><td><a href="apartments/612.html">12 sqm balcony</a></td><td class="go"><a href="apartments/612.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr></tbody></table></div>
-    </div>
-    <div class="floor" id="floor-7">
-      <div class="floor-img"><img class="rv" loading="lazy" src="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a7218b74673baae4df2d1c8_Frame%20167.png" alt="Floor 7 plan"></div>
-      <div><h3>Floor 7</h3><table class="units"><thead><tr><th>Residence</th><th class="hide-m">Orientation</th><th>Apartment</th><th>Outdoor</th><th></th></tr></thead><tbody><tr><td><a href="apartments/701.html">701</a></td><td class="hide-m"><a href="apartments/701.html">NW</a></td><td><a href="apartments/701.html">65 sqm</a></td><td><a href="apartments/701.html">12 sqm balcony</a></td><td class="go"><a href="apartments/701.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/702.html">702</a></td><td class="hide-m"><a href="apartments/702.html">N</a></td><td><a href="apartments/702.html">85 sqm</a></td><td><a href="apartments/702.html">12 sqm balcony</a></td><td class="go"><a href="apartments/702.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/703.html">703</a></td><td class="hide-m"><a href="apartments/703.html">N</a></td><td><a href="apartments/703.html">85 sqm</a></td><td><a href="apartments/703.html">12 sqm balcony</a></td><td class="go"><a href="apartments/703.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/704.html">704</a></td><td class="hide-m"><a href="apartments/704.html">NE</a></td><td><a href="apartments/704.html">65 sqm</a></td><td><a href="apartments/704.html">12 sqm balcony</a></td><td class="go"><a href="apartments/704.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/705.html">705</a></td><td class="hide-m"><a href="apartments/705.html">E</a></td><td><a href="apartments/705.html">55 sqm</a></td><td><a href="apartments/705.html">12 sqm balcony</a></td><td class="go"><a href="apartments/705.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/706.html">706</a></td><td class="hide-m"><a href="apartments/706.html">E</a></td><td><a href="apartments/706.html">55 sqm</a></td><td><a href="apartments/706.html">12 sqm balcony</a></td><td class="go"><a href="apartments/706.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/707.html">707</a></td><td class="hide-m"><a href="apartments/707.html">SE</a></td><td><a href="apartments/707.html">65 sqm</a></td><td><a href="apartments/707.html">12 sqm balcony</a></td><td class="go"><a href="apartments/707.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/708.html">708</a></td><td class="hide-m"><a href="apartments/708.html">S</a></td><td><a href="apartments/708.html">85 sqm</a></td><td><a href="apartments/708.html">12 sqm balcony</a></td><td class="go"><a href="apartments/708.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/709.html">709</a></td><td class="hide-m"><a href="apartments/709.html">S</a></td><td><a href="apartments/709.html">85 sqm</a></td><td><a href="apartments/709.html">12 sqm balcony</a></td><td class="go"><a href="apartments/709.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/710.html">710</a></td><td class="hide-m"><a href="apartments/710.html">SW</a></td><td><a href="apartments/710.html">65 sqm</a></td><td><a href="apartments/710.html">12 sqm balcony</a></td><td class="go"><a href="apartments/710.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/711.html">711</a></td><td class="hide-m"><a href="apartments/711.html">W</a></td><td><a href="apartments/711.html">55 sqm</a></td><td><a href="apartments/711.html">12 sqm balcony</a></td><td class="go"><a href="apartments/711.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/712.html">712</a></td><td class="hide-m"><a href="apartments/712.html">W</a></td><td><a href="apartments/712.html">55 sqm</a></td><td><a href="apartments/712.html">12 sqm balcony</a></td><td class="go"><a href="apartments/712.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr></tbody></table></div>
-    </div>
-  </section>
-  <section class="sect" id="double-height-villas">
-    <div class="sect-head"><h2 class="h2 rv">Double-Height Villas</h2><span>Floors 8 to 15</span></div>
-    <div class="floor" id="floor-8">
-      <div class="floor-img"><img class="rv" loading="lazy" src="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a721ad9c5044b9439b82dde_Floor%209.png" alt="Floor 8 plan"></div>
-      <div><h3>Floor 8</h3><table class="units"><thead><tr><th>Residence</th><th class="hide-m">Orientation</th><th>Apartment</th><th>Outdoor</th><th></th></tr></thead><tbody><tr><td><a href="apartments/801.html">801</a></td><td class="hide-m"><a href="apartments/801.html">NW</a></td><td><a href="apartments/801.html">153 sqm</a></td><td><a href="apartments/801.html">31 sqm terrace</a></td><td class="go"><a href="apartments/801.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/802.html">802</a></td><td class="hide-m"><a href="apartments/802.html">NE</a></td><td><a href="apartments/802.html">153 sqm</a></td><td><a href="apartments/802.html">31 sqm terrace</a></td><td class="go"><a href="apartments/802.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/803.html">803</a></td><td class="hide-m"><a href="apartments/803.html">E</a></td><td><a href="apartments/803.html">55 sqm</a></td><td><a href="apartments/803.html">12 sqm balcony</a></td><td class="go"><a href="apartments/803.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/804.html">804</a></td><td class="hide-m"><a href="apartments/804.html">E</a></td><td><a href="apartments/804.html">55 sqm</a></td><td><a href="apartments/804.html">12 sqm balcony</a></td><td class="go"><a href="apartments/804.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/805.html">805</a></td><td class="hide-m"><a href="apartments/805.html">SE</a></td><td><a href="apartments/805.html">161 sqm</a></td><td><a href="apartments/805.html">23 sqm terrace</a></td><td class="go"><a href="apartments/805.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr class="na"><td><span>806</span></td><td class="hide-m"><span>SW</span></td><td><span>161 sqm</span></td><td><span>23 sqm terrace</span></td><td class="go"><span>Unavailable</span></td></tr><tr><td><a href="apartments/807.html">807</a></td><td class="hide-m"><a href="apartments/807.html">W</a></td><td><a href="apartments/807.html">55 sqm</a></td><td><a href="apartments/807.html">12 sqm balcony</a></td><td class="go"><a href="apartments/807.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/808.html">808</a></td><td class="hide-m"><a href="apartments/808.html">W</a></td><td><a href="apartments/808.html">68 sqm</a></td><td><a href="apartments/808.html">12 sqm balcony</a></td><td class="go"><a href="apartments/808.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr></tbody></table></div>
-    </div>
-    <div class="floor" id="floor-9">
-      <div class="floor-img"><img class="rv" loading="lazy" src="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a7221a0fab1601ab5f9dc2f_floor%209-2.png" alt="Floor 9 plan"></div>
-      <div><h3>Floor 9</h3><table class="units"><thead><tr><th>Residence</th><th class="hide-m">Orientation</th><th>Apartment</th><th>Outdoor</th><th></th></tr></thead><tbody><tr class="na"><td><span>901</span></td><td class="hide-m"><span>—</span></td><td><span>85 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>902</span></td><td class="hide-m"><span>—</span></td><td><span>85 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>903</span></td><td class="hide-m"><span>—</span></td><td><span>59 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>904</span></td><td class="hide-m"><span>—</span></td><td><span>59 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>905</span></td><td class="hide-m"><span>—</span></td><td><span>85 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>906</span></td><td class="hide-m"><span>—</span></td><td><span>85 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>907</span></td><td class="hide-m"><span>—</span></td><td><span>59 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>908</span></td><td class="hide-m"><span>—</span></td><td><span>72 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr></tbody></table></div>
-    </div>
-    <div class="floor" id="floor-10">
-      <div class="floor-img"><img class="rv" loading="lazy" src="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a7221f06c3d1481844e5209_floor-10.png" alt="Floor 10 plan"></div>
-      <div><h3>Floor 10</h3><table class="units"><thead><tr><th>Residence</th><th class="hide-m">Orientation</th><th>Apartment</th><th>Outdoor</th><th></th></tr></thead><tbody><tr class="na"><td><span>1001</span></td><td class="hide-m"><span>—</span></td><td><span>161 sqm</span></td><td><span>23 sqm terrace</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1002</span></td><td class="hide-m"><span>—</span></td><td><span>161 sqm</span></td><td><span>23 sqm terrace</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1003</span></td><td class="hide-m"><span>—</span></td><td><span>55 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1004</span></td><td class="hide-m"><span>—</span></td><td><span>55 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1005</span></td><td class="hide-m"><span>—</span></td><td><span>153 sqm</span></td><td><span>31 sqm terrace</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1006</span></td><td class="hide-m"><span>—</span></td><td><span>161 sqm</span></td><td><span>23 sqm terrace</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1007</span></td><td class="hide-m"><span>—</span></td><td><span>55 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1008</span></td><td class="hide-m"><span>—</span></td><td><span>68 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr></tbody></table></div>
-    </div>
-    <div class="floor" id="floor-11">
-      <div class="floor-img"><img class="rv" loading="lazy" src="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a7222c06c3d1481844eb8f3_floor%2011.png" alt="Floor 11 plan"></div>
-      <div><h3>Floor 11</h3><table class="units"><thead><tr><th>Residence</th><th class="hide-m">Orientation</th><th>Apartment</th><th>Outdoor</th><th></th></tr></thead><tbody><tr><td><a href="apartments/1101.html">1101</a></td><td class="hide-m"><a href="apartments/1101.html">N</a></td><td><a href="apartments/1101.html">85 sqm</a></td><td><a href="apartments/1101.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1101.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1102.html">1102</a></td><td class="hide-m"><a href="apartments/1102.html">N</a></td><td><a href="apartments/1102.html">85 sqm</a></td><td><a href="apartments/1102.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1102.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1103.html">1103</a></td><td class="hide-m"><a href="apartments/1103.html">E</a></td><td><a href="apartments/1103.html">59 sqm</a></td><td><a href="apartments/1103.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1103.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1104.html">1104</a></td><td class="hide-m"><a href="apartments/1104.html">E</a></td><td><a href="apartments/1104.html">59 sqm</a></td><td><a href="apartments/1104.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1104.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1105.html">1105</a></td><td class="hide-m"><a href="apartments/1105.html">S</a></td><td><a href="apartments/1105.html">85 sqm</a></td><td><a href="apartments/1105.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1105.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1106.html">1106</a></td><td class="hide-m"><a href="apartments/1106.html">S</a></td><td><a href="apartments/1106.html">85 sqm</a></td><td><a href="apartments/1106.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1106.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1107.html">1107</a></td><td class="hide-m"><a href="apartments/1107.html">W</a></td><td><a href="apartments/1107.html">59 sqm</a></td><td><a href="apartments/1107.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1107.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1108.html">1108</a></td><td class="hide-m"><a href="apartments/1108.html">W</a></td><td><a href="apartments/1108.html">72 sqm</a></td><td><a href="apartments/1108.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1108.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr></tbody></table></div>
-    </div>
-    <div class="floor" id="floor-12">
-      <div class="floor-img"><img class="rv" loading="lazy" src="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a7cd05f97b2cebe0cd988ca_floor-12-bg.png" alt="Floor 12 plan"></div>
-      <div><h3>Floor 12</h3><table class="units"><thead><tr><th>Residence</th><th class="hide-m">Orientation</th><th>Apartment</th><th>Outdoor</th><th></th></tr></thead><tbody><tr><td><a href="apartments/1201.html">1201</a></td><td class="hide-m"><a href="apartments/1201.html">NW</a></td><td><a href="apartments/1201.html">153 sqm</a></td><td><a href="apartments/1201.html">31 sqm terrace</a></td><td class="go"><a href="apartments/1201.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1202.html">1202</a></td><td class="hide-m"><a href="apartments/1202.html">NE</a></td><td><a href="apartments/1202.html">153 sqm</a></td><td><a href="apartments/1202.html">31 sqm terrace</a></td><td class="go"><a href="apartments/1202.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1203.html">1203</a></td><td class="hide-m"><a href="apartments/1203.html">E</a></td><td><a href="apartments/1203.html">55 sqm</a></td><td><a href="apartments/1203.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1203.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1204.html">1204</a></td><td class="hide-m"><a href="apartments/1204.html">E</a></td><td><a href="apartments/1204.html">55 sqm</a></td><td><a href="apartments/1204.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1204.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1205.html">1205</a></td><td class="hide-m"><a href="apartments/1205.html">SE</a></td><td><a href="apartments/1205.html">161 sqm</a></td><td><a href="apartments/1205.html">23 sqm terrace</a></td><td class="go"><a href="apartments/1205.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr class="na"><td><span>1206</span></td><td class="hide-m"><span>SW</span></td><td><span>161 sqm</span></td><td><span>23 sqm terrace</span></td><td class="go"><span>Unavailable</span></td></tr><tr><td><a href="apartments/1207.html">1207</a></td><td class="hide-m"><a href="apartments/1207.html">W</a></td><td><a href="apartments/1207.html">55 sqm</a></td><td><a href="apartments/1207.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1207.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1208.html">1208</a></td><td class="hide-m"><a href="apartments/1208.html">W</a></td><td><a href="apartments/1208.html">68 sqm</a></td><td><a href="apartments/1208.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1208.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr></tbody></table></div>
-    </div>
-    <div class="floor" id="floor-13">
-      <div class="floor-img"><img class="rv" loading="lazy" src="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a72250b9f8a389034a2b546_floor%2013.png" alt="Floor 13 plan"></div>
-      <div><h3>Floor 13</h3><table class="units"><thead><tr><th>Residence</th><th class="hide-m">Orientation</th><th>Apartment</th><th>Outdoor</th><th></th></tr></thead><tbody><tr class="na"><td><span>1301</span></td><td class="hide-m"><span>N</span></td><td><span>85 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1302</span></td><td class="hide-m"><span>N</span></td><td><span>85 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr><td><a href="apartments/1303.html">1303</a></td><td class="hide-m"><a href="apartments/1303.html">E</a></td><td><a href="apartments/1303.html">59 sqm</a></td><td><a href="apartments/1303.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1303.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1304.html">1304</a></td><td class="hide-m"><a href="apartments/1304.html">E</a></td><td><a href="apartments/1304.html">59 sqm</a></td><td><a href="apartments/1304.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1304.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1305.html">1305</a></td><td class="hide-m"><a href="apartments/1305.html">S</a></td><td><a href="apartments/1305.html">85 sqm</a></td><td><a href="apartments/1305.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1305.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1306.html">1306</a></td><td class="hide-m"><a href="apartments/1306.html">S</a></td><td><a href="apartments/1306.html">85 sqm</a></td><td><a href="apartments/1306.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1306.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1307.html">1307</a></td><td class="hide-m"><a href="apartments/1307.html">W</a></td><td><a href="apartments/1307.html">59 sqm</a></td><td><a href="apartments/1307.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1307.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1308.html">1308</a></td><td class="hide-m"><a href="apartments/1308.html">W</a></td><td><a href="apartments/1308.html">72 sqm</a></td><td><a href="apartments/1308.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1308.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr></tbody></table></div>
-    </div>
-    <div class="floor" id="floor-14">
-      <div class="floor-img"><img class="rv" loading="lazy" src="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a7ccf0b345a5c0ee0fce94f_floor-14-bg.png" alt="Floor 14 plan"></div>
-      <div><h3>Floor 14</h3><table class="units"><thead><tr><th>Residence</th><th class="hide-m">Orientation</th><th>Apartment</th><th>Outdoor</th><th></th></tr></thead><tbody><tr class="na"><td><span>1401</span></td><td class="hide-m"><span>NW</span></td><td><span>153 sqm</span></td><td><span>31 sqm terrace</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1402</span></td><td class="hide-m"><span>NE</span></td><td><span>153 sqm</span></td><td><span>31 sqm terrace</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1403</span></td><td class="hide-m"><span>E</span></td><td><span>55 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1404</span></td><td class="hide-m"><span>E</span></td><td><span>55 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1405</span></td><td class="hide-m"><span>SE</span></td><td><span>153 sqm</span></td><td><span>31 sqm terrace</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1406</span></td><td class="hide-m"><span>SW</span></td><td><span>161 sqm</span></td><td><span>23 sqm terrace</span></td><td class="go"><span>Unavailable</span></td></tr><tr><td><a href="apartments/1407.html">1407</a></td><td class="hide-m"><a href="apartments/1407.html">W</a></td><td><a href="apartments/1407.html">55 sqm</a></td><td><a href="apartments/1407.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1407.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1408.html">1408</a></td><td class="hide-m"><a href="apartments/1408.html">W</a></td><td><a href="apartments/1408.html">68 sqm</a></td><td><a href="apartments/1408.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1408.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr></tbody></table></div>
-    </div>
-    <div class="floor" id="floor-15">
-      <div class="floor-img"><img class="rv" loading="lazy" src="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a7225e28a8fa81a3d84fd46_Floor%2015.png" alt="Floor 15 plan"></div>
-      <div><h3>Floor 15</h3><table class="units"><thead><tr><th>Residence</th><th class="hide-m">Orientation</th><th>Apartment</th><th>Outdoor</th><th></th></tr></thead><tbody><tr class="na"><td><span>1501</span></td><td class="hide-m"><span>N</span></td><td><span>85 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1502</span></td><td class="hide-m"><span>N</span></td><td><span>85 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1503</span></td><td class="hide-m"><span>E</span></td><td><span>59 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1504</span></td><td class="hide-m"><span>E</span></td><td><span>59 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1505</span></td><td class="hide-m"><span>S</span></td><td><span>85 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr class="na"><td><span>1506</span></td><td class="hide-m"><span>S</span></td><td><span>85 sqm</span></td><td><span>12 sqm balcony</span></td><td class="go"><span>Unavailable</span></td></tr><tr><td><a href="apartments/1507.html">1507</a></td><td class="hide-m"><a href="apartments/1507.html">W</a></td><td><a href="apartments/1507.html">59 sqm</a></td><td><a href="apartments/1507.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1507.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1508.html">1508</a></td><td class="hide-m"><a href="apartments/1508.html">W</a></td><td><a href="apartments/1508.html">72 sqm</a></td><td><a href="apartments/1508.html">12 sqm balcony</a></td><td class="go"><a href="apartments/1508.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr></tbody></table></div>
-    </div>
-  </section>
-  <section class="sect" id="crown-residences">
-    <div class="sect-head"><h2 class="h2 rv">Crown Residences</h2><span>Floors 16 to 19</span></div>
-    <div class="floor" id="floor-16">
-      <div class="floor-img"><img class="rv" loading="lazy" src="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a7226b8385001be10d7fd59_Floor%2016.png" alt="Floor 16 plan"></div>
-      <div><h3>Floor 16</h3><table class="units"><thead><tr><th>Residence</th><th class="hide-m">Orientation</th><th>Apartment</th><th>Outdoor</th><th></th></tr></thead><tbody><tr><td><a href="apartments/1601.html">1601</a></td><td class="hide-m"><a href="apartments/1601.html">NW</a></td><td><a href="apartments/1601.html">213 sqm</a></td><td><a href="apartments/1601.html">54 sqm terrace</a></td><td class="go"><a href="apartments/1601.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1602.html">1602</a></td><td class="hide-m"><a href="apartments/1602.html">NE</a></td><td><a href="apartments/1602.html">199 sqm</a></td><td><a href="apartments/1602.html">66 sqm terrace</a></td><td class="go"><a href="apartments/1602.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1603.html">1603</a></td><td class="hide-m"><a href="apartments/1603.html">SE</a></td><td><a href="apartments/1603.html">187 sqm</a></td><td><a href="apartments/1603.html">66 sqm terrace</a></td><td class="go"><a href="apartments/1603.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr class="na"><td><span>1604</span></td><td class="hide-m"><span>SW</span></td><td><span>220 sqm</span></td><td><span>54 sqm terrace</span></td><td class="go"><span>Unavailable</span></td></tr></tbody></table></div>
-    </div>
-    <div class="floor" id="floor-17">
-      <div class="floor-img"><img class="rv" loading="lazy" src="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a722754d6ef0dcf81906606_Floor%2017.png" alt="Floor 17 plan"></div>
-      <div><h3>Floor 17</h3><table class="units"><thead><tr><th>Residence</th><th class="hide-m">Orientation</th><th>Apartment</th><th>Outdoor</th><th></th></tr></thead><tbody><tr><td><a href="apartments/1701.html">1701</a></td><td class="hide-m"><a href="apartments/1701.html">NW</a></td><td><a href="apartments/1701.html">213 sqm</a></td><td><a href="apartments/1701.html">55 sqm terrace</a></td><td class="go"><a href="apartments/1701.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1702.html">1702</a></td><td class="hide-m"><a href="apartments/1702.html">NE</a></td><td><a href="apartments/1702.html">199 sqm</a></td><td><a href="apartments/1702.html">55 sqm terrace</a></td><td class="go"><a href="apartments/1702.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1703.html">1703</a></td><td class="hide-m"><a href="apartments/1703.html">SE</a></td><td><a href="apartments/1703.html">187 sqm</a></td><td><a href="apartments/1703.html">56 sqm terrace</a></td><td class="go"><a href="apartments/1703.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr class="na"><td><span>1704</span></td><td class="hide-m"><span>SW</span></td><td><span>220 sqm</span></td><td><span>66 sqm terrace</span></td><td class="go"><span>Unavailable</span></td></tr></tbody></table></div>
-    </div>
-    <div class="floor" id="floor-18">
-      <div class="floor-img"><img class="rv" loading="lazy" src="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a7227d3385001be10d8a095_Floor%2018.png" alt="Floor 18 plan"></div>
-      <div><h3>Floor 18</h3><table class="units"><thead><tr><th>Residence</th><th class="hide-m">Orientation</th><th>Apartment</th><th>Outdoor</th><th></th></tr></thead><tbody><tr><td><a href="apartments/1801.html">1801</a></td><td class="hide-m"><a href="apartments/1801.html">NW</a></td><td><a href="apartments/1801.html">213 sqm</a></td><td><a href="apartments/1801.html">55 sqm terrace</a></td><td class="go"><a href="apartments/1801.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1802.html">1802</a></td><td class="hide-m"><a href="apartments/1802.html">NE</a></td><td><a href="apartments/1802.html">199 sqm</a></td><td><a href="apartments/1802.html">53 sqm terrace</a></td><td class="go"><a href="apartments/1802.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr><td><a href="apartments/1803.html">1803</a></td><td class="hide-m"><a href="apartments/1803.html">SE</a></td><td><a href="apartments/1803.html">187 sqm</a></td><td><a href="apartments/1803.html">66 sqm terrace</a></td><td class="go"><a href="apartments/1803.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr class="na"><td><span>1804</span></td><td class="hide-m"><span>SW</span></td><td><span>220 sqm</span></td><td><span>55 sqm terrace</span></td><td class="go"><span>Unavailable</span></td></tr></tbody></table></div>
-    </div>
-    <div class="floor" id="floor-19">
-      <div class="floor-img"><img class="rv" loading="lazy" src="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a72283b2804ddd62fe676ac_Floor%2019.png" alt="Floor 19 plan"></div>
-      <div><h3>Floor 19</h3><table class="units"><thead><tr><th>Residence</th><th class="hide-m">Orientation</th><th>Apartment</th><th>Outdoor</th><th></th></tr></thead><tbody><tr class="na"><td><span>1901</span></td><td class="hide-m"><span>NW</span></td><td><span>213 sqm</span></td><td><span>66 sqm terrace</span></td><td class="go"><span>Unavailable</span></td></tr><tr><td><a href="apartments/1902.html">1902</a></td><td class="hide-m"><a href="apartments/1902.html">NE</a></td><td><a href="apartments/1902.html">199 sqm</a></td><td><a href="apartments/1902.html">55 sqm terrace</a></td><td class="go"><a href="apartments/1902.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr><tr class="na"><td><span>1903</span></td><td class="hide-m"><span>—</span></td><td><span>334 sqm</span></td><td><span>228 sqm terrace</span></td><td class="go"><span>Unavailable</span></td></tr></tbody></table></div>
-    </div>
-  </section>
-  <section class="sect" id="the-penthouse">
-    <div class="sect-head"><h2 class="h2 rv">The Penthouse</h2><span>Floor 20</span></div>
-    <div class="floor" id="floor-20">
-      <div class="floor-img"><img class="rv" loading="lazy" src="https://cdn.prod.website-files.com/6a6f5c166dbeec8fe50bd459/6a72297e12d08a4fd7a4bf61_penthouse.png" alt="The Penthouse plan"></div>
-      <div><h3>The Penthouse</h3><table class="units"><thead><tr><th>Residence</th><th class="hide-m">Orientation</th><th>Apartment</th><th>Outdoor</th><th></th></tr></thead><tbody><tr><td><a href="apartments/2001.html">2001</a></td><td class="hide-m"><a href="apartments/2001.html">—</a></td><td><a href="apartments/2001.html">370 sqm</a></td><td><a href="apartments/2001.html">330 sqm terrace</a></td><td class="go"><a href="apartments/2001.html">View <svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></td></tr></tbody></table></div>
-    </div>
-  </section>
-  <div class="gcta"><a class="tlink" href="see-the-residences.html"><div class="tlink-text">Residences<br>Gallery</div><svg viewBox="0 0 40 59"><use href="#chev"/></svg></a></div>
-</main>
-
-<footer class="foot">
-  <svg viewBox="0 0 306 150" aria-hidden="true"><use href="#jh-logo"/></svg>
-  <div class="foot-contact"><span>8 Shaul HaMelech St., Tel Aviv</span><span>|</span><a href="tel:+97235040045">+972-3-5040045</a><span>|</span><a href="mailto:info@journalist-house.com">info@journalist-house.com</a></div>
-  <div class="foot-legal"><a href="terms-of-use.html">Terms of Use</a><i></i><a href="privacy-policy.html">Privacy Policy</a><i></i><a href="accessibility-statement.html">Accessibility Statement</a></div>
-</footer>
+<div class="page-wrapper"><main class="main-wrapper"><section class="section_plans-hero"><a href="index.html#the-residences" class="back-btn w-inline-block"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="16" viewBox="0 0 11 16" fill="none" class="back-btn-arrow"><path d="M10.3438 0.580013L1.19082 7.99704L10.3438 15.4141" stroke="#151515" stroke-width="1.5"></path></svg><div class="back-btn-text">BACK</div></a><div data-pin-length="1.5" data-horizontal-scroll-panel="" data-chapter="the-building" class="building-mockup-div"><div class="the-building-left-align"><div data-building-stage="" class="the-building_inner-wrap"><img class="the-building__img" src="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a61fe0e07bd3dfc7ac9c471_building-img.avif" width="1023" height="1038" alt="" data-building-img="" sizes="100vw" loading="eager" srcset="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a61fe0e07bd3dfc7ac9c471_building-img-p-500.avif 500w, https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a61fe0e07bd3dfc7ac9c471_building-img-p-800.avif 800w, https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a61fe0e07bd3dfc7ac9c471_building-img-p-1080.avif 1080w, https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a61fe0e07bd3dfc7ac9c471_building-img-p-1600.avif 1600w, https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a61fe0e07bd3dfc7ac9c471_building-img.avif 2046w"><div class="the-building_top-reveal-wrap"><div data-building-veil="" class="the-building__veil is--ground-floor is--none-pointer"></div><div class="the-building__veil is--garden"><a data-name="Garden Terraces" id="w-node-_28d15fba-7858-fef1-3fc9-5133778e1517-201ef613" href="floors/5.html" class="the-building_link w-inline-block"></a></div><div class="the-building__veil is--urban-residences"><a data-name="Urban Residences" id="w-node-_6a7ae349-e32a-5784-f7f7-9cfebee781e4-201ef613" href="cubes/urban-residences.html" class="the-building_link is--selected w-inline-block"></a></div><div class="the-building__veil is--double-villas"><a data-name="Double-Height  Villas" id="w-node-_29cb34d2-037a-43e0-e69c-5f9dfbf6a429-201ef613" href="cubes/double-height-villas.html" class="the-building_link w-inline-block"></a></div><div class="the-building__veil is--crown"><a data-name="Crown Residences" id="w-node-_8ce9936c-5219-9fbd-dacd-3c7d37aeddcd-201ef613" href="cubes/crown-residences.html" class="the-building_link w-inline-block"></a></div><div class="the-building__veil is--penthouse"><a data-name="The Penthouse" id="w-node-bf892bb8-10f0-d551-c3e0-4d632f1f34d0-201ef613" href="floors/penthouse.html" class="the-building_link w-inline-block"></a></div></div></div></div><div class="the-building_text-wrap is--select"><svg xmlns="http://www.w3.org/2000/svg" width="33" height="51" viewBox="0 0 33 51" fill="none" class="the-building_arrow"><path d="M32.554 50.259C31.8586 51.1172 30.5996 51.2492 29.7415 50.554L0.741465 27.054C0.272845 26.6742 0.000253947 26.1034 0.000253999 25.5002C0.0002552 24.8971 0.272846 24.3263 0.741465 23.9465L29.7415 0.446541C30.5996 -0.248736 31.8586 -0.116662 32.554 0.741463C33.2492 1.59964 33.1172 2.85858 32.259 3.55396L5.17701 25.5002L32.259 47.4465C33.1172 48.1419 33.2492 49.4009 32.554 50.259Z" fill="#151515"></path></svg><div data-name-target="" class="the-building_hovered-text">SELECT <br>THE SECTION</div></div></div><div class="type-mobile_controls-wrap"><div class="type-mobile_head">SELECT THE SECTION</div><div class="type-mobile_controls"><button type="button" data-floor-down="" aria-label="Floor down" class="type-mobile_btn"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="30" viewBox="0 0 64 30" fill="none" class="type-mobile_btn-arrow"><path d="M39.0741 11.8004C39.2994 11.9601 39.3528 12.2724 39.1932 12.4977L33.7479 20.1842C33.6542 20.3166 33.5019 20.3952 33.3397 20.3952C33.1775 20.3952 33.0252 20.3166 32.9315 20.1842L27.4862 12.4977C27.3266 12.2724 27.38 11.9601 27.6053 11.8004C27.8306 11.6409 28.143 11.6943 28.3026 11.9196L33.3397 19.029L38.3768 11.9196C38.5364 11.6943 38.8487 11.6409 39.0741 11.8004Z" fill="#151515"></path></svg></button><div class="type-mobile_floor-level"><div data-floor-level="" class="type-mobile_floor-level-txt">Garden Terraces</div></div><button type="button" data-floor-up="" aria-label="Floor up" class="type-mobile_btn"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="30" viewBox="0 0 64 30" fill="none" class="type-mobile_btn-arrow"><path d="M39.0741 20.3031C39.2994 20.1435 39.3528 19.8311 39.1932 19.6058L33.7479 11.9193C33.6542 11.787 33.5019 11.7083 33.3397 11.7083C33.1775 11.7083 33.0252 11.787 32.9315 11.9193L27.4862 19.6058C27.3266 19.8311 27.38 20.1435 27.6053 20.3031C27.8306 20.4626 28.143 20.4092 28.3026 20.1839L33.3397 13.0746L38.3768 20.1839C38.5364 20.4092 38.8487 20.4626 39.0741 20.3031Z" fill="#151515"></path></svg></button></div><button data-floor-enter="" type="button" aria-label="Enter Floor" class="type-mobile_enter-btn">ENTER SECTION</button></div></section></main></div>
 
 <div class="modal" id="inquire" role="dialog" aria-modal="true" aria-label="Inquire" aria-hidden="true">
   <div class="modal-bg" data-close></div>
@@ -211,6 +398,10 @@
 </div>
 
 
-<script src="js/site.js?v=7db7beed"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>window.JH_BASE = new URL('./', location.href).pathname;</script>
+<script src="js/orig/plans.js?v=e108acc8"></script>
+<script src="js/site.js?v=e108acc8"></script>
 </body>
 </html>

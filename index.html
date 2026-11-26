@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400&display=swap" rel="stylesheet">
-<script>document.documentElement.className += ' js';</script>
-<link rel="stylesheet" href="css/site.css?v=7db7beed">
+<script>document.documentElement.className += ' js';try{if(sessionStorage.getItem('jh-pt')){sessionStorage.removeItem('jh-pt');document.documentElement.className += ' pt-in';}}catch(e){}</script>
+<link rel="stylesheet" href="css/site.css?v=e108acc8">
 </head>
 <body id="top" data-chapters="THE PROJECT|THE ARCHITECTS|THE LOCATION|THE BUILDING|THE RESIDENCES">
 
@@ -26,6 +26,7 @@
     <path fill="currentColor" d="M0.380038 0.726718C1.00031 -0.0850322 2.16095 -0.240137 2.97281 0.380038L38.9728 27.88C39.4309 28.23 39.6994 28.7733 39.6994 29.3498C39.6994 29.9262 39.4309 30.4695 38.9728 30.8195L2.97281 58.3195C2.16095 58.9397 1.00031 58.7846 0.380038 57.9728C-0.240136 57.1609 -0.0850301 56.0003 0.726718 55.38L34.8019 29.3498L0.726718 3.31949C-0.0850322 2.69922 -0.240137 1.53858 0.380038 0.726718Z"/>
   </symbol>
 </svg>
+<div class="pt" id="pt" aria-hidden="true"><svg viewBox="0 0 306 150"><use href="#jh-logo"/></svg></div>
 
 <header class="topbar">
   <button class="tb-menu" id="menuBtn" aria-label="Open chapters menu" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -160,12 +161,14 @@
 
   <!-- ================= THE BUILDING ================= -->
   <section id="the-building" data-chapter="3">
+    <div class="vid-pin" data-vid-pin>
     <div class="beyond">
       <h2 class="h2 rv">Beyond Tel Aviv’s<br>Standard</h2>
-      <video autoplay muted loop playsinline preload="metadata" poster="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43%2F6a5f58d4ee0ef6b5b3238b3d_S280_V01_Option01_poster.0000000.jpg">
+      <video muted playsinline preload="auto" data-scrub poster="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43%2F6a5f58d4ee0ef6b5b3238b3d_S280_V01_Option01_poster.0000000.jpg">
         <source src="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43%2F6a5f58d4ee0ef6b5b3238b3d_S280_V01_Option01_mp4.mp4" type="video/mp4">
         <source src="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43%2F6a5f58d4ee0ef6b5b3238b3d_S280_V01_Option01_webm.webm" type="video/webm">
       </video>
+    </div>
     </div>
     <figure class="natural"><img loading="lazy" src="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a79a908415280a1de3e15f4_30bf8de6333e86f721f64cacd502fe3c_Location_Double%20Height%202-p-3200.avif" alt="Double-height residences overlooking Tel Aviv and the sea"></figure>
     <figure class="natural feat-img-m gap-top"><img loading="lazy" src="https://cdn.prod.website-files.com/6a4f7045e10baec12b17db43/6a5fb9808e6ffbdfd012e322_c05_zzz%2Bxl%201.avif" alt="Journalist House seen from the street"></figure>
@@ -264,6 +267,6 @@
 </div>
 
 
-<script src="js/site.js?v=7db7beed"></script>
+<script src="js/site.js?v=e108acc8"></script>
 </body>
 </html>
