@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400&display=swap" rel="stylesheet">
-<script>(function(){var d=document.documentElement,m=/[/](cubes|floors|apartments)[/]/;d.className+=' js';try{if(m.test(location.pathname)&&document.referrer&&m.test(new URL(document.referrer).pathname)&&new URL(document.referrer).host===location.host){d.className+=' no-ld';return;}}catch(e){}d.className+=' ld-on';})();</script>
+<script>(function(){var d=document.documentElement,m=/[/](cubes|floors|apartments)[/]/;d.className+=' js';try{var r=document.referrer?new URL(document.referrer):null,to=m.exec(location.pathname),from=r&&r.host===location.host?m.exec(r.pathname):null;if(to&&from&&!(to[1]==='apartments'&&from[1]!=='apartments')){d.className+=' no-ld';return;}}catch(e){}d.className+=' ld-on';})();</script>
 <link rel="stylesheet" href="../css/orig.css?v=f7d3e8a5">
 <link rel="stylesheet" href="../css/site.css?v=f7d3e8a5">
 <style>
