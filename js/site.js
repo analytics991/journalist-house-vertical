@@ -52,6 +52,13 @@
   var charEls = $$('[data-chars]');
   var feat = $('#feat'), featLines = $$('.feat-list h2');
   var tower = $('.tower[data-pinned]'), veils = $$('.veil', tower || doc), markers = $$('.marker', tower || doc);
+  var nights = $$('[data-night]'), grows = $$('[data-grow]');
+  nights.forEach(function (fig) {
+    fig._labels = $$('svg > g > g', fig).sort(function (a, b) {
+      var la = a.querySelector('line'), lb = b.querySelector('line');
+      return (la ? +la.getAttribute('x1') : 0) - (lb ? +lb.getAttribute('x1') : 0);
+    });
+  });
   var chapters = $$('[data-chapter]');
   var chNames = (body.getAttribute('data-chapters') || '').split('|').filter(Boolean);
   var chName = $('#chName'), chFill = $('#chFill'), curChapter = -1;
@@ -84,6 +91,21 @@
       var p = reduce ? 1 : clamp((vh * 0.9 - r.top) / (vh * 0.5), 0, 1);
       var n = Math.round(p * el._chars.length);
       el._chars.forEach(function (c, i) { c.classList.toggle('on', i < n); });
+    });
+
+    nights.forEach(function (fig) {
+      var r = fig.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > vh + 200) { return; }
+      var p = reduce ? 1 : clamp((vh * 0.8 - r.top) / (vh * 0.55), 0, 1);
+      var n = Math.round(p * fig._labels.length);
+      fig._labels.forEach(function (g, i) { g.classList.toggle('on', i < n); });
+    });
+
+    grows.forEach(function (fig) {
+      var r = fig.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > vh + 200) { return; }
+      var p = (reduce || isMobile) ? 1 : clamp((vh - r.top) / (vh * 0.8), 0, 1);
+      fig.firstElementChild.style.width = (38 + 62 * p).toFixed(2) + '%';
     });
 
     if (feat) {
@@ -222,6 +244,41 @@
       a.addEventListener('mouseenter', function () { pickText.textContent = a.getAttribute('data-name'); });
       a.addEventListener('mouseleave', function () { pickText.innerHTML = pickDefault; });
     });
+  }
+
+  /* ---- residences gallery ---- */
+  var gal = $('#gal');
+  if (gal) {
+    var slides = $$('.gal-slide', gal), tabs = $$('.gal-tabs button', gal);
+    var gPrev = $('#galPrev'), gNext = $('#galNext'), cur = 0;
+    var show = function (i) {
+      cur = clamp(i, 0, slides.length - 1);
+      var tab = slides[cur].getAttribute('data-tab');
+      slides.forEach(function (s, k) { s.classList.toggle('on', k === cur); });
+      tabs.forEach(function (t) {
+        var on = t.getAttribute('data-tab') === tab;
+        t.classList.toggle('on', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      gPrev.disabled = cur === 0;
+      gNext.disabled = cur === slides.length - 1;
+    };
+    gPrev.addEventListener('click', function () { show(cur - 1); });
+    gNext.addEventListener('click', function () { show(cur + 1); });
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        var tab = t.getAttribute('data-tab');
+        for (var k = 0; k < slides.length; k++) {
+          if (slides[k].getAttribute('data-tab') === tab) { show(k); break; }
+        }
+      });
+    });
+    doc.addEventListener('keydown', function (e) {
+      if ($('.modal.open') || body.classList.contains('menu-open')) { return; }
+      if (e.key === 'ArrowRight') { show(cur + 1); }
+      if (e.key === 'ArrowLeft') { show(cur - 1); }
+    });
+    show(0);
   }
 
   /* ---- unit plan zoom ---- */

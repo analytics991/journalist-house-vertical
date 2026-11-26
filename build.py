@@ -61,6 +61,8 @@ NOTE = '<div class="inq-note" aria-live="polite"><b></b><span></span></div>'
 MODAL = re.sub(r'<form id="inqForm".*?</form>\s*<div class="inq-note".*?</div>', lambda m: FORM + '\n      ' + NOTE, MODAL, flags=re.S)
 MODAL = MODAL.replace(' id="inqBox"', '')
 
+NIGHT = re.sub(r'^<svg[^>]*>', '<svg viewBox="0 0 1332 741" fill="none" aria-hidden="true">', read('src/night-labels.svg').strip())
+HOME_MAIN = HOME_MAIN.replace('{NIGHT_SVG}', NIGHT)
 HERO = re.search(r'  <!-- =+ HERO =+ -->\n  <section class="hero".*?</section>\n', HOME_MAIN, re.S).group(0)
 HOME_MAIN = HOME_MAIN.replace(HERO, '')
 
@@ -148,7 +150,7 @@ page('journey-2.html', 'The Wellness Sanctuary | Urban Retreat in Tel Aviv',
 # ---------------------------------------------------------------- gallery + inquire
 page('see-the-residences.html', 'The Residences | Luxury Tel Aviv Apartments & Penthouses',
      'A gallery of the residences at Journalist House, Tel Aviv: Garden Terraces, Urban Residences, Double-Height Villas, Crown Residences and the Penthouse.',
-     read('src/gallery.html'))
+     '', before_main=read('src/gallery.html'))
 page('inquire.html', 'Inquire | Journalist House Tel Aviv',
      'Inquire about a residence at Journalist House, 8 Shaul HaMelech St., Tel Aviv.',
      '  {CONTACT}\n'.replace('class="contact"', 'class="contact"'))
