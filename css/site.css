@@ -514,3 +514,6 @@ html.ld-on{overflow:hidden}
 .foot{padding:2.2rem 7rem;gap:4rem;align-items:center}
 .foot svg{width:11rem}
 @media (max-width:767px){.foot{padding:3rem;gap:1.6rem}.foot svg{width:12rem}}
+
+/* inquire is an envelope icon in the top menu */
+@media (max-width:767px){.tb-icon.tb-mail{display:flex;width:var(--bar)}.tb-icon.tb-mail svg{width:3.6rem}}
