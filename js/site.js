@@ -1,0 +1,250 @@
+(function () {
+  'use strict';
+  /* Where the Inquire form is sent. Leave empty to fall back to an e-mail draft
+     addressed to INQUIRY_EMAIL. Set it to your form handler URL (POST) to go live. */
+  var FORM_ENDPOINT = '';
+  var INQUIRY_EMAIL = 'info@journalist-house.com';
+  var VIMEO_ID = '1237913403';
+
+  var doc = document, body = doc.body;
+  var $ = function (s, r) { return (r || doc).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || doc).querySelectorAll(s)); };
+  var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
+  var mobile = window.matchMedia('(max-width: 767px)');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- split headings into letters for the scroll-driven ink effect ---- */
+  $$('[data-chars]').forEach(function (el) {
+    var words = el.textContent.trim().split(/\s+/);
+    el.setAttribute('aria-label', words.join(' '));
+    el.textContent = '';
+    words.forEach(function (word, i) {
+      var w = doc.createElement('span');
+      w.className = 'w';
+      w.setAttribute('aria-hidden', 'true');
+      word.split('').forEach(function (c) {
+        var s = doc.createElement('span');
+        s.className = 'ch';
+        s.textContent = c;
+        w.appendChild(s);
+      });
+      el.appendChild(w);
+      if (i < words.length - 1) { el.appendChild(doc.createTextNode(' ')); }
+    });
+    el._chars = $$('.ch', el);
+  });
+
+  /* ---- reveal on scroll ---- */
+  var revealEls = $$('.rv');
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.05 });
+    revealEls.forEach(function (el) { io.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  /* ---- scroll-driven pieces ---- */
+  var plx = $$('[data-plx]');
+  var charEls = $$('[data-chars]');
+  var feat = $('#feat'), featLines = $$('.feat-list h2');
+  var tower = $('.tower[data-pinned]'), veils = $$('.veil', tower || doc), markers = $$('.marker', tower || doc);
+  var chapters = $$('[data-chapter]');
+  var chNames = (body.getAttribute('data-chapters') || '').split('|').filter(Boolean);
+  var chName = $('#chName'), chFill = $('#chFill'), curChapter = -1;
+  var ticking = false;
+
+  function pinProgress(el, vh) {
+    var r = el.getBoundingClientRect();
+    var total = r.height - vh;
+    if (total <= 0) { return 1; }
+    return clamp(-r.top / total, 0, 1);
+  }
+
+  function update() {
+    ticking = false;
+    var vh = window.innerHeight;
+    var isMobile = mobile.matches;
+
+    if (!reduce) {
+      plx.forEach(function (img) {
+        var r = img.parentNode.getBoundingClientRect();
+        if (r.bottom < -100 || r.top > vh + 100) { return; }
+        var c = (r.top + r.height / 2 - vh / 2) / vh;
+        img.style.transform = 'translate3d(0,' + (clamp(c, -1, 1) * -7).toFixed(2) + '%,0)';
+      });
+    }
+
+    charEls.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > vh + 200) { return; }
+      var p = reduce ? 1 : clamp((vh * 0.9 - r.top) / (vh * 0.5), 0, 1);
+      var n = Math.round(p * el._chars.length);
+      el._chars.forEach(function (c, i) { c.classList.toggle('on', i < n); });
+    });
+
+    if (feat) {
+      var fp = isMobile ? 1 : pinProgress(feat, vh);
+      var on = isMobile ? featLines.length : Math.floor(fp * (featLines.length + 0.999));
+      featLines.forEach(function (l, i) { l.classList.toggle('on', i < Math.max(on, 1)); });
+    }
+
+    if (tower) {
+      var tp = isMobile ? 1 : pinProgress(tower, vh);
+      var step = isMobile ? 5 : Math.floor(tp * 6.2);
+      veils.forEach(function (v) { v.classList.toggle('off', +v.getAttribute('data-step') <= step); });
+      markers.forEach(function (m) { m.classList.toggle('on', +m.getAttribute('data-step') <= step); });
+    }
+
+    if (chName && chNames.length) {
+      var idx = 0;
+      chapters.forEach(function (s) {
+        if (s.getBoundingClientRect().top <= vh * 0.5) { idx = +s.getAttribute('data-chapter'); }
+      });
+      if (idx !== curChapter) {
+        curChapter = idx;
+        chName.textContent = chNames[idx] || '';
+        var span = chNames.length > 1 ? (13 / 3) / (chNames.length - 1) : 0;
+        chFill.style.transform = 'translateX(' + (idx * span * 100) + '%)';
+      }
+    }
+  }
+  function onScroll() {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  window.addEventListener('load', onScroll);
+  update();
+
+  /* ---- chapters menu ---- */
+  var menuBtn = $('#menuBtn'), menu = $('#menu');
+  function setMenu(open) {
+    body.classList.toggle('menu-open', open);
+    body.classList.toggle('lock', open || !!$('.modal.open'));
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    menuBtn.setAttribute('aria-label', open ? 'Close chapters menu' : 'Open chapters menu');
+    menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+  }
+  menuBtn.addEventListener('click', function () { setMenu(!body.classList.contains('menu-open')); });
+  $$('a', menu).forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+
+  /* ---- overlays ---- */
+  var lastFocus = null;
+  function openModal(m) {
+    lastFocus = doc.activeElement;
+    setMenu(false);
+    m.classList.add('open');
+    m.setAttribute('aria-hidden', 'false');
+    body.classList.add('lock');
+    var f = $('input, button.x', m);
+    if (f) { window.setTimeout(function () { f.focus(); }, 80); }
+  }
+  function closeModal(m) {
+    m.classList.remove('open');
+    m.setAttribute('aria-hidden', 'true');
+    body.classList.remove('lock');
+    if (m.id === 'video') { $('#vidFrame').innerHTML = ''; }
+    if (lastFocus && lastFocus.focus) { lastFocus.focus(); }
+  }
+  var inquire = $('#inquire'), video = $('#video');
+  $$('[data-inquire]').forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      e.preventDefault();
+      var unit = b.getAttribute('data-unit');
+      if (unit) { var u = $('input[name="Residence"]', inquire); if (u) { u.value = unit; } }
+      openModal(inquire);
+    });
+  });
+  $$('[data-video]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      $('#vidFrame').innerHTML = '<iframe src="https://player.vimeo.com/video/' + VIMEO_ID + '?autoplay=1&title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Journalist House film"></iframe>';
+      openModal(video);
+    });
+  });
+  $$('[data-close]').forEach(function (b) {
+    b.addEventListener('click', function () { closeModal(b.closest('.modal')); });
+  });
+  doc.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') { return; }
+    var m = $('.modal.open');
+    if (m) { closeModal(m); } else if (body.classList.contains('menu-open')) { setMenu(false); }
+  });
+
+  /* ---- inquire forms (overlay + in-page) ---- */
+  $$('form.inq-f').forEach(function (form) {
+    var box = form.parentNode;
+    var sel = $('select', form);
+    sel.addEventListener('change', function () { sel.classList.toggle('filled', !!sel.value); });
+    function note(head, text) {
+      $('.inq-note b', box).textContent = head;
+      $('.inq-note span', box).textContent = text;
+      box.classList.add('sent');
+    }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      var data = new FormData(form);
+      if (FORM_ENDPOINT) {
+        fetch(FORM_ENDPOINT, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
+          .then(function (r) {
+            if (!r.ok) { throw new Error('bad status'); }
+            note('Thank you for your interest', 'We have received your details and will be in touch soon to provide further information.');
+          })
+          .catch(function () {
+            note('Oops!', 'Something went wrong while submitting the form.');
+          });
+        return;
+      }
+      var lines = [
+        'First name: ' + data.get('First-Name'),
+        'Last name: ' + data.get('Last-Name'),
+        'Email: ' + data.get('Email'),
+        'Phone: ' + data.get('Phone-Number'),
+        'Interested in: ' + data.get('Interested-in'),
+        'Privacy Policy accepted: yes',
+        'Marketing consent: yes'
+      ];
+      if (data.get('Residence')) { lines.splice(5, 0, 'Residence: ' + data.get('Residence')); }
+      window.location.href = 'mailto:' + INQUIRY_EMAIL + '?subject=' + encodeURIComponent('Journalist House inquiry') + '&body=' + encodeURIComponent(lines.join('\n'));
+      note('One more step', 'Your e-mail app has opened with your details. Press send there to complete your inquiry, or call +972-3-5040045.');
+    });
+  });
+
+  /* ---- residence selector: hovering a level names it ---- */
+  var pickText = $('#pickText');
+  if (pickText) {
+    var pickDefault = pickText.innerHTML;
+    $$('.veil-link').forEach(function (a) {
+      a.addEventListener('mouseenter', function () { pickText.textContent = a.getAttribute('data-name'); });
+      a.addEventListener('mouseleave', function () { pickText.innerHTML = pickDefault; });
+    });
+  }
+
+  /* ---- unit plan zoom ---- */
+  var plan = $('#planImg');
+  if (plan) {
+    var z = 1, lvl = $('#planLevel');
+    var setZ = function (v) {
+      z = clamp(v, 1, 3);
+      plan.style.width = (z * 100) + '%';
+      plan.style.maxHeight = z > 1 ? 'none' : '';
+      lvl.textContent = Math.round(z * 100) + '%';
+    };
+    $('#planIn').addEventListener('click', function () { setZ(z + 0.5); });
+    $('#planOut').addEventListener('click', function () { setZ(z - 0.5); });
+    lvl.addEventListener('click', function () { setZ(1); });
+  }
+
+  /* ---- cookies ---- */
+  var cookies = $('#cookies'), seen = false;
+  try { seen = window.localStorage.getItem('jh-cookies') === '1'; } catch (err) { seen = false; }
+  if (!seen) { cookies.classList.add('show'); }
+  $('#cookieOk').addEventListener('click', function () {
+    cookies.classList.remove('show');
+    try { window.localStorage.setItem('jh-cookies', '1'); } catch (err) { /* private mode */ }
+  });
+})();
