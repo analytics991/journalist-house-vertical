@@ -402,3 +402,15 @@ main{max-width:var(--col);margin:0 auto}
 }
 .contact h2{font-family:var(--canela);font-weight:300;font-size:7.5rem;line-height:1.4;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:2rem;color:#000}
 @media (max-width:767px){.contact h2{font-size:5rem}}
+
+/* feature list: the page holds on it and the lines darken one by one, on phones too */
+.feat-img-m{display:none}
+@media (max-width:767px){
+  .feat-img-m{display:block}
+  .feat{height:320vh;margin-top:0}
+  .feat-pin{position:sticky;top:var(--bar);height:calc(100vh - var(--bar));height:calc(100svh - var(--bar));display:flex;flex-direction:column;justify-content:center}
+  .feat-pin .feat-img{display:none}
+  .feat-list{padding:0 3rem;gap:2.6rem}
+  .feat-list h2{color:var(--soft)}
+  .feat-list h2.on{color:#000}
+}

@@ -87,8 +87,8 @@
     });
 
     if (feat) {
-      var fp = isMobile ? 1 : pinProgress(feat, vh);
-      var on = isMobile ? featLines.length : Math.floor(fp * (featLines.length + 0.999));
+      var fp = pinProgress(feat, vh);
+      var on = Math.floor(fp * (featLines.length + 0.999));
       featLines.forEach(function (l, i) { l.classList.toggle('on', i < Math.max(on, 1)); });
     }
 
