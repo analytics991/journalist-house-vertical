@@ -233,3 +233,8 @@ html.ld-on{overflow:hidden}
 
 /* no loader when moving between floors, units and plans inside the residence selector */
 .js.no-ld .ld{display:none}
+
+/* compact footer */
+.foot{padding:2.2rem 7rem;gap:4rem;align-items:center}
+.foot svg{width:11rem}
+@media (max-width:767px){.foot{padding:3rem;gap:1.6rem}.foot svg{width:12rem}}
