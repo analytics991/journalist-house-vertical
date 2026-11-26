@@ -179,6 +179,35 @@
   window.addEventListener('load', onScroll);
   update();
 
+  /* ---- arriving on a #section link: photos higher up are still loading and push
+     the page down, so keep re-aligning to the section until things settle ---- */
+  (function () {
+    var id = (window.location.hash || '').replace(/^#/, '');
+    var target = id ? doc.getElementById(id) : null;
+    if (!target || id === 'top') { return; }
+    var active = true, until = Date.now() + 8000;
+    var stop = function () { active = false; };
+    var snap = function () {
+      if (!active || Date.now() > until) { return; }
+      var bar = $('.topbar') ? $('.topbar').offsetHeight : 0;
+      var y = target.getBoundingClientRect().top + window.pageYOffset - bar;
+      if (Math.abs(window.pageYOffset - y) > 2) {
+        var html = doc.documentElement, prev = html.style.scrollBehavior;
+        html.style.scrollBehavior = 'auto';
+        window.scrollTo(0, y);
+        html.style.scrollBehavior = prev;
+      }
+    };
+    ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) {
+      window.addEventListener(ev, stop, { passive: true, once: true });
+    });
+    $$('img').forEach(function (im) {
+      if (!im.complete) { im.addEventListener('load', snap); }
+    });
+    window.addEventListener('load', snap);
+    [0, 150, 500, 1200, 2500].forEach(function (t) { window.setTimeout(snap, t); });
+  })();
+
   /* ---- chapters menu ---- */
   var menuBtn = $('#menuBtn'), menu = $('#menu');
   function setMenu(open) {
