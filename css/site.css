@@ -530,3 +530,4 @@ html.ld-on{overflow:hidden}
 @media (max-width:767px){.slide-pin{height:200vh}.slide-hold img{height:auto;max-height:100%}}
 
 html{overflow-x:clip}
+body{overflow-x:visible}
