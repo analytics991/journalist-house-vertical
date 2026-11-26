@@ -495,3 +495,6 @@ main{max-width:var(--col);margin:0 auto}
 /* reveals slide in from the side instead of rising from below */
 .js .rv{transform:translateX(7rem)}
 .js .rv.in{transform:none}
+
+.chars-pin .lead{position:sticky;top:var(--bar);min-height:0;height:calc(100vh - var(--bar));height:calc(100svh - var(--bar))}
+.h3 .ch.on{color:#000}
