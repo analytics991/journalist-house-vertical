@@ -226,7 +226,7 @@ def orig_page(path, pg, main, script, title=None, desc='', page_css=None):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>%s</title>
 <meta name="description" content="%s">
-%s<script>document.documentElement.className += ' js';document.documentElement.className += ' ld-on';</script>
+%s<script>(function(){var d=document.documentElement,m=/[/](cubes|floors|apartments)[/]/;d.className+=' js';try{if(m.test(location.pathname)&&document.referrer&&m.test(new URL(document.referrer).pathname)&&new URL(document.referrer).host===location.host){d.className+=' no-ld';return;}}catch(e){}d.className+=' ld-on';})();</script>
 <link rel="stylesheet" href="{R}css/orig.css?v={V}">
 <link rel="stylesheet" href="{R}css/site.css?v={V}">
 %s

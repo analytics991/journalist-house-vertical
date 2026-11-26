@@ -324,7 +324,9 @@
   /* ---- loader, as on the original site: the grey logo fills with black from
      the left while the first images load, then the white screen wipes away ---- */
   var ld = $('#ld');
-  if (ld) {
+  if (ld && doc.documentElement.classList.contains('no-ld')) {
+    ld.style.display = 'none';
+  } else if (ld) {
     var fill = $('.ld-fill', ld), started = Date.now(), finished = false, prog = 0;
     var setFill = function (p, dur) {
       prog = Math.max(prog, p);
